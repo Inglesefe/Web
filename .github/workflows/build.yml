@@ -20,6 +20,9 @@ jobs:
       with:
         fetch-depth: 0
 
+    - name: Instalar paquetes
+      run: pushd ${{ github.workspace }}; npm -i;
+
     - name: Compilar la solución
       run: pushd ${{ github.workspace }}; ng build;
 
