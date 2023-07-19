@@ -38,8 +38,8 @@ jobs:
     - name: Reemplazar variables
       uses: prabhakarareddygaddam-mcd/replace-action@1.0.0
       with:
-        files: ${{ env.solution }}\deploy.yml
+        files: deploy.yml
         replacements: --version--=${{ env.version }},--environment--=${{ github.ref_name }}
 
     - name: Desplegar en Kubernetes
-      run: kubectl apply -f ${{ github.workspace }}\${{ env.solution }}\deploy.yml
+      run: kubectl apply -f ${{ github.workspace }}\deploy.yml
