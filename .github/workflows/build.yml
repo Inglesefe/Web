@@ -21,7 +21,7 @@ jobs:
         fetch-depth: 0
 
     - name: Compilar la solución
-      run: pushd ${{ github.workspace }}\${{ env.solution }}; ng build;
+      run: pushd ${{ github.workspace }}; ng build;
 
     - name: Conectar al repositorio de imágenes
       run: docker login ghcr.io -u ${{ env.username }} -p ${{ secrets.GITHUB_TOKEN }}
