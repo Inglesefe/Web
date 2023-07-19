@@ -1,0 +1,45 @@
+name: Compilar Web
+on:
+  push:
+    branches:
+      - "main"
+      - "test"
+      - "dev"
+jobs:
+  build:
+    runs-on: [self-hosted, '${{ github.ref_name }}']
+    env:
+      solution: Web
+      version: 1.0.${{ github.run_number }}
+      image_name: ${{ github.repository }}
+      username: leandrobaena@gmail.com
+
+    steps:
+    - name: Descarga del código
+      uses: actions/checkout@v3
+      with:
+        fetch-depth: 0
+
+    - name: Cambiar de ubicación
+      run: cd ${{ env.solution }}
+
+    - name: Compilar la solución
+      run: ng build 
+
+    - name: Conectar al repositorio de imágenes
+      run: docker login ghcr.io -u ${{ env.username }} -p ${{ secrets.GITHUB_TOKEN }}
+
+    - name: Construir imagen Docker
+      run: docker build ${{ env.solution }} -t ghcr.io/inglesefe/web:${{ env.version }} -t ghcr.io/inglesefe/web:latest
+
+    - name: Publicar imagen Docker
+      run: docker push -a ghcr.io/inglesefe/web
+
+    - name: Reemplazar variables
+      uses: prabhakarareddygaddam-mcd/replace-action@1.0.0
+      with:
+        files: ${{ env.solution }}\deploy.yml
+        replacements: --version--=${{ env.version }},--environment--=${{ github.ref_name }}
+
+    - name: Desplegar en Kubernetes
+      run: kubectl apply -f ${{ github.workspace }}\${{ env.solution }}\deploy.yml
