@@ -41,6 +41,10 @@ spec:
     - port: 80
       name: http
       protocol: TCP
-      nodePort: 31010
+      nodePort: --portHttp--
+    - port: 443
+      name: https
+      protocol: TCP
+      nodePort: --portHttps--
   selector:
     app: web
