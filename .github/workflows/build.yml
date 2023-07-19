@@ -30,7 +30,7 @@ jobs:
       run: docker login ghcr.io -u ${{ env.username }} -p ${{ secrets.GITHUB_TOKEN }}
 
     - name: Construir imagen Docker
-      run: docker build ${{ env.solution }} -t ghcr.io/inglesefe/web:${{ env.version }} -t ghcr.io/inglesefe/web:latest
+      run: docker build . -t ghcr.io/inglesefe/web:${{ env.version }} -t ghcr.io/inglesefe/web:latest
 
     - name: Publicar imagen Docker
       run: docker push -a ghcr.io/inglesefe/web
