@@ -1,25 +1,27 @@
 # Web
 
-- dev: [![dev](https://github.com/Inglesefe/Web/actions/workflows/build.yml/badge.svg?branch=dev)](https://github.com/Inglesefe/Web/actions/workflows/build.yml)  
-- test: [![test](https://github.com/Inglesefe/Web/actions/workflows/build.yml/badge.svg?branch=test)](https://github.com/Inglesefe/Web/actions/workflows/build.yml)  
-- main: [![main](https://github.com/Inglesefe/Web/actions/workflows/build.yml/badge.svg?branch=main)](https://github.com/Inglesefe/Web/actions/workflows/build.yml)
+This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 16.1.4.
 
-Aplicación Web del sistema Golden
+## Development server
 
-## Guía de inicio
+Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
 
-Estas instrucciones le darán una copia del proyecto funcionando en su máquina local con fines de desarrollo y prueba.
-Consulte implementación para obtener notas sobre la implementación del proyecto en un sistema en vivo.
+## Code scaffolding
 
-### Prerequisitos
+Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
 
-Este proyecto está desarrollado en Angular 14, y hace referencia a las distintas API's
+## Build
 
-## Pruebas
+Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
 
-Para ejecutar las pruebas unitarias, es necesario tener instalado MySQL en el ambiente y ejecutar el script db-test.sql que se encuentra en el proyecto de pruebas.
-La conexión se realiza por defecto con el usuario root y el password root, si necesita cambiarlos debe realizarlo en el archivo appsettings.json del proyecto de pruebas.
+## Running unit tests
 
-## Despliegue
+Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
 
-El proyecto se despliega como un contenedor en linux en el repositorio [Contenedores de GitHub](https://github.com/Inglesefe/Web/pkgs/nuget/web)
+## Running end-to-end tests
+
+Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+
+## Further help
+
+To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.

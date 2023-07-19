@@ -15,18 +15,15 @@ jobs:
       username: leandrobaena@gmail.com
 
     steps:
-    - name: Descarga del código
+    - name: Descarga del cÃ³digo
       uses: actions/checkout@v3
       with:
         fetch-depth: 0
 
-    - name: Cambiar de ubicación
-      run: cd ${{ env.solution }}
-
-    - name: Compilar la solución
+    - name: Compilar la soluciÃ³n
       run: ng build 
 
-    - name: Conectar al repositorio de imágenes
+    - name: Conectar al repositorio de imÃ¡genes
       run: docker login ghcr.io -u ${{ env.username }} -p ${{ secrets.GITHUB_TOKEN }}
 
     - name: Construir imagen Docker
