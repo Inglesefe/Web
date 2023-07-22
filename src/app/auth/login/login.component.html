@@ -1,0 +1,18 @@
+<div class="container">
+  <p>
+    <img src="../../../favicon.png" />
+  </p>
+  <mat-form-field>
+    <mat-label>Usuario</mat-label>
+    <input matInput type="email" [(ngModel)]="login" />
+  </mat-form-field>
+  <br />
+  <mat-form-field>
+    <mat-label>Contraseña</mat-label>
+    <input matInput type="password" [(ngModel)]="password" />
+  </mat-form-field>
+  <div class="btnLoginContainer">
+    <button mat-flat-button color="accent" (click)="loginUser()" [disabled]="loading">Ingresar</button>
+  </div>
+  <mat-spinner *ngIf="loading" color="accent" diameter="50"></mat-spinner>
+</div>
