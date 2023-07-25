@@ -1,0 +1,27 @@
+.spacer {
+  flex: 1 1 auto;
+}
+
+.app-container {
+  height: 92vh;
+  margin: 0;
+}
+
+.app-sidenav {
+  width: 230px;
+}
+
+.app-sidenav-content {
+  display: flex;
+  height: 100%;
+  align-items: center;
+  justify-content: center;
+}
+
+.mat-expansion-panel-header-span {
+  padding: 3px;
+}
+
+.main-content{
+    padding: 20px;
+}
