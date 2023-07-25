@@ -11,10 +11,12 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatListModule } from '@angular/material/list';
 import { MatExpansionModule } from '@angular/material/expansion';
+import { MatPaginatorIntl } from '@angular/material/paginator';
 
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { MatPaginatorSpanish } from './MatPaginatorSpanish';
 
 @NgModule({
   declarations: [
@@ -36,7 +38,8 @@ import { DashboardComponent } from './dashboard/dashboard.component';
     MatListModule,
     MatExpansionModule
   ],
-  providers: [],
+  providers: [{ provide: MatPaginatorIntl, useClass: MatPaginatorSpanish
+}],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
