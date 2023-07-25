@@ -39,6 +39,23 @@ export class LoginComponent {
   }
 
   /**
+   * Valida que el usuario aun no esté logueado
+   */
+  ngOnInit() {
+    let token = sessionStorage.getItem("golden-token");
+    if (token != null) {
+      try {
+        let objToken: JwtToken = jwt_decode<JwtToken>(token);
+        if (objToken.exp - Math.floor(Date.now() / 1000) > 0) {
+          this.router.navigate(["/home"]);
+        }
+      } catch {
+        sessionStorage.removeItem("golden-token");
+      }
+    }
+  }
+
+  /**
    * Realiza el logeo del usuario
    */
   public loginUser(): void {
@@ -48,7 +65,7 @@ export class LoginComponent {
         .then(x => {
           if (x.valid) {
             let objToken = jwt_decode<JwtToken>(x.token);
-            this._snackBar.open("Bienvenido " + objToken.name, "Cerrar");
+            this._snackBar.open("Bienvenido " + objToken.name, "Cerrar", { duration: 2000 });
             sessionStorage.setItem("golden-token", x.token);
             this.router.navigate(["/home"]);
           } else {
