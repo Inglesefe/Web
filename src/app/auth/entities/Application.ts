@@ -12,7 +12,7 @@ export class Application extends EntityBase {
   /**
    * Inicializa los datos por defecto
    */
-  protected constructor() {
+  public constructor() {
     super();
     this.name = '';
   }

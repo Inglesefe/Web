@@ -40,7 +40,7 @@ export class JwtToken {
   /**
    * Inicializa los datos por defecto
    */
-  protected constructor() {
+  public constructor() {
     this.aud = '';
     this.email = '';
     this.exp = 0;

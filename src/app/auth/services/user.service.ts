@@ -4,12 +4,14 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { lastValueFrom } from 'rxjs';
 import * as CryptoJS from 'crypto-js';
 import { environment } from '../../../environment/environment';
+import { ListResult } from '../entities/ListResult';
+import { Application } from '../entities/Application';
 
 @Injectable({
   providedIn: 'root'
 })
 /**
- * Servicio para comunicarse con la api de usuarios datos de usuarios
+ * Servicio para comunicarse con la api de usuarios
  */
 export class UserService {
 
@@ -41,5 +43,16 @@ export class UserService {
     };
     let headers: HttpHeaders = new HttpHeaders({ "Content-Type": "application/json" });
     return lastValueFrom(this.http.post<LoginResponse>(environment.API_AUTH_URL + "User/login", JSON.stringify(data), { headers }));
+  }
+
+  /**
+   * Realiza la consulta del listado de usuarios
+   * @param login Login del usuario
+   * @param password Contraseña del usuario en texto plano
+   * @returns Promesa con el resultado
+   */
+  public list(filters: string, orders: string, limit: number, offset: number): Promise<ListResult<Application>> {
+    let headers: HttpHeaders = new HttpHeaders({ "Authorization": "Bearer " + sessionStorage.getItem("golden-token") });
+    return lastValueFrom(this.http.get<ListResult<Application>>(environment.API_AUTH_URL + "User?filters=" + filters + "&orders=" + orders + "&limit=" + limit + "&offset=" + offset, { headers }));
   }
 }
