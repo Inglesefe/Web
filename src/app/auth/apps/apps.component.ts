@@ -25,6 +25,10 @@ export class AppsComponent {
   dataSource: MatTableDataSource<Application> = new MatTableDataSource();
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
+  fieldFilter: string = "";
+  operatorFilter: string = "";
+  valueFilter: string = "";
+  filterStr: string = "";
 
   /**
    * Inicializa el servicio a la api de autenticación
@@ -45,7 +49,7 @@ export class AppsComponent {
     if (this.sort != undefined) {
       orders = (this.sort.active === "id" ? "idapplication" : this.sort.active) + " " + (this.sort.direction === "" ? "asc" : this.sort.direction);
     }
-    this.appService.list("", orders, this.pageSize, this.currentPage * this.pageSize)
+    this.appService.list(this.filterStr, orders, this.pageSize, this.currentPage * this.pageSize)
       .then(r => { this.totalRows = r.total; this.dataSource.data = r.list; this.loading = false; })
       .catch(() => { this._snackBar.open("Hubo un error al consultar el listado de aplicaciones", "Cerrar", { duration: 2000 }); this.loading = false; });
   }
@@ -71,5 +75,37 @@ export class AppsComponent {
 
   delete(app: number) {
     console.log(app);
+  }
+
+  filter() {
+    if (this.fieldFilter !== "" && this.operatorFilter !== "" && this.valueFilter !== "") {
+      this.filterStr = this.fieldFilter;
+      switch (this.operatorFilter) {
+        case "eq":
+          this.filterStr += " = " + this.valueFilter;
+          break;
+        case "lt":
+          this.filterStr += " < " + this.valueFilter;
+          break;
+        case "gt":
+          this.filterStr += " > " + this.valueFilter;
+          break;
+        case "like":
+          this.filterStr += " like %" + this.valueFilter + "%";
+          break;
+      }
+      this.loadData();
+    }
+    else {
+      this._snackBar.open("Debe diligenciar correctamente el filtro", "Cerrar", { duration: 2000 })
+    }
+  }
+
+  clearFilter() {
+    this.fieldFilter = "";
+    this.operatorFilter = "";
+    this.valueFilter = "";
+    this.filterStr = "";
+    this.loadData();
   }
 }
