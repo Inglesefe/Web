@@ -22,7 +22,7 @@ export class User extends EntityBase {
   /**
    * Inicializa los datos por defecto
    */
-  protected constructor() {
+  public constructor() {
     super();
     this.login = '';
     this.name = '';

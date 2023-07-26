@@ -18,12 +18,15 @@ import { MatSortModule } from '@angular/material/sort';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatSelectModule } from '@angular/material/select';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { EditAppComponent } from './edit-app/edit-app.component';
+import { MatDialogModule } from '@angular/material/dialog';
 
 @NgModule({
   declarations: [
     LoginComponent,
     LogoutComponent,
-    AppsComponent
+    AppsComponent,
+    EditAppComponent
   ],
   imports: [
     CommonModule,
@@ -41,7 +44,8 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     MatSortModule,
     MatProgressBarModule,
     MatSelectModule,
-    MatTooltipModule
+    MatTooltipModule,
+    MatDialogModule
   ],
   exports: []
 })

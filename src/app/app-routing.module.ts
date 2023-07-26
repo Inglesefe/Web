@@ -5,6 +5,7 @@ import { LogoutComponent } from './auth/logout/logout.component';
 import { HomeComponent } from './home/home.component';
 import { AppsComponent } from './auth/apps/apps.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { EditAppComponent } from './auth/edit-app/edit-app.component';
 
 const routes: Routes = [
   { path: "login", component: LoginComponent },
@@ -12,6 +13,7 @@ const routes: Routes = [
     path: "home", component: HomeComponent,
     children: [
       { path: "apps", component: AppsComponent },
+      { path: "app/:id", component: EditAppComponent },
       { path: "", component: DashboardComponent },
       { path: "**", component: DashboardComponent }
     ]

@@ -32,4 +32,44 @@ export class ApplicationService {
     let headers: HttpHeaders = new HttpHeaders({ "Authorization": "Bearer " + sessionStorage.getItem("golden-token") });
     return lastValueFrom(this.http.get<ListResult<Application>>(environment.API_AUTH_URL + "Application?filters=" + filters + "&orders=" + encodeURI(orders) + "&limit=" + limit + "&offset=" + offset, { headers }));
   }
+
+  /**
+   * Realiza la consulta de una aplicación
+   * @param id Identificador de la aplicación
+   * @returns Promesa con el resultado
+   */
+  public read(id: number): Promise<Application> {
+    let headers: HttpHeaders = new HttpHeaders({ "Authorization": "Bearer " + sessionStorage.getItem("golden-token") });
+    return lastValueFrom(this.http.get<Application>(environment.API_AUTH_URL + "Application/" + id, { headers }));
+  }
+
+  /**
+   * Inserta una aplicación
+   * @param app Aplicación a insertar
+   * @returns Promesa con el resultado
+   */
+  public insert(app: Application): Promise<Application> {
+    let headers: HttpHeaders = new HttpHeaders({ "Authorization": "Bearer " + sessionStorage.getItem("golden-token"), "Content-Type": "application/json" });
+    return lastValueFrom(this.http.post<Application>(environment.API_AUTH_URL + "Application", app, { headers }));
+  }
+
+  /**
+   * Actualiza una aplicación
+   * @param app Aplicación a actualizar
+   * @returns Promesa con el resultado
+   */
+  public update(app: Application): Promise<Application> {
+    let headers: HttpHeaders = new HttpHeaders({ "Authorization": "Bearer " + sessionStorage.getItem("golden-token"), "Content-Type": "application/json" });
+    return lastValueFrom(this.http.put<Application>(environment.API_AUTH_URL + "Application", app, { headers }));
+  }
+
+  /**
+   * Elimina una aplicación
+   * @param id Identificación de la aplicación a eliminar
+   * @returns Promesa con el resultado
+   */
+  public delete(id: number): Promise<Application> {
+    let headers: HttpHeaders = new HttpHeaders({ "Authorization": "Bearer " + sessionStorage.getItem("golden-token") });
+    return lastValueFrom(this.http.delete<Application>(environment.API_AUTH_URL + "Application/" + id, { headers }));
+  }
 }

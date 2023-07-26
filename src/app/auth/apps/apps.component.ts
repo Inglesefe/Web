@@ -1,10 +1,13 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, Inject, ViewChild } from '@angular/core';
 import { Application } from '../entities/Application';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { ApplicationService } from '../services/application.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatSort, Sort } from '@angular/material/sort';
+import { Router } from '@angular/router';
+import { MAT_DIALOG_DATA, MatDialog, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
+import { MatButtonModule } from '@angular/material/button';
 
 const ELEMENT_DATA: Application[] = [
   { id: 1, name: 'Autenticación' },
@@ -29,15 +32,13 @@ export class AppsComponent {
   operatorFilter: string = "";
   valueFilter: string = "";
   filterStr: string = "";
+  option: string = "";
 
   /**
    * Inicializa el servicio a la api de autenticación
    * @param userService
    */
-  constructor(private appService: ApplicationService, private _snackBar: MatSnackBar) {
-  }
-
-  ngOnInit(): void {
+  constructor(private appService: ApplicationService, private _snackBar: MatSnackBar, private router: Router, public dialog: MatDialog) {
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
     this.loadData();
@@ -48,6 +49,8 @@ export class AppsComponent {
     let orders: string = "";
     if (this.sort != undefined) {
       orders = (this.sort.active === "id" ? "idapplication" : this.sort.active) + " " + (this.sort.direction === "" ? "asc" : this.sort.direction);
+    } else {
+      orders = "idapplication asc";
     }
     this.appService.list(this.filterStr, orders, this.pageSize, this.currentPage * this.pageSize)
       .then(r => { this.totalRows = r.total; this.dataSource.data = r.list; this.loading = false; })
@@ -55,7 +58,6 @@ export class AppsComponent {
   }
 
   pageChanged(event: PageEvent) {
-    console.log({ event });
     this.pageSize = event.pageSize;
     this.currentPage = event.pageIndex;
     this.loadData();
@@ -66,15 +68,25 @@ export class AppsComponent {
   }
 
   add() {
-    console.log('add');
+    this.router.navigate(["/home/app/0"]);
   }
 
   edit(app: number) {
-    console.log(app);
+    this.router.navigate(["/home/app/" + app]);
   }
 
   delete(app: number) {
-    console.log(app);
+    const dialogRef = this.dialog.open(ConfirmDialog, {
+      data: { option: this.option }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result === "ok") {
+        this.appService.delete(app)
+          .then(x => { this._snackBar.open("Aplicación eliminada correctamente", "Cerrar", { duration: 2000 }); this.loadData(); })
+          .catch(() => this._snackBar.open("Hubo un error al insertar la aplicación", "Cerrar", { duration: 2000 }))
+      }
+    });
   }
 
   filter() {
@@ -107,5 +119,30 @@ export class AppsComponent {
     this.valueFilter = "";
     this.filterStr = "";
     this.loadData();
+  }
+}
+
+@Component({
+  selector: 'confirm-dialog',
+  template: `<h1 mat-dialog-title>Confirmación</h1>
+<div mat-dialog-content>
+  ¿Desea eliminar este registro?
+</div>
+<div mat-dialog-actions>
+  <button mat-button mat-dialog-close (click)="cancel()">No</button>
+  <button mat-button mat-dialog-close (click)="ok()" cdkFocusInitial>Si</button>
+</div>`,
+  standalone: true,
+  imports: [MatDialogModule, MatButtonModule],
+})
+export class ConfirmDialog {
+  constructor(public dialogRef: MatDialogRef<ConfirmDialog>) { }
+
+  cancel() {
+    this.dialogRef.close("cancel");
+  }
+
+  ok() {
+    this.dialogRef.close("ok");
   }
 }
