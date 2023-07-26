@@ -1,3 +1,16 @@
 table {
   width: 100%;
 }
+
+.mat-column-id {
+  width: 30px;
+}
+
+.mat-column-edit {
+  width: 30px;
+  color: --primary-color
+}
+
+.mat-column-delete{
+    width: 30px;
+}

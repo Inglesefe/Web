@@ -12,12 +12,21 @@ import { LogoutComponent } from './logout/logout.component';
 import { MatButtonModule } from '@angular/material/button';
 import { AppsComponent } from './apps/apps.component';
 import { MatTableModule } from '@angular/material/table';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatIconModule } from '@angular/material/icon';
+import { MatSortModule } from '@angular/material/sort';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { MatSelectModule } from '@angular/material/select';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { EditAppComponent } from './edit-app/edit-app.component';
+import { MatDialogModule } from '@angular/material/dialog';
 
 @NgModule({
   declarations: [
     LoginComponent,
     LogoutComponent,
-    AppsComponent
+    AppsComponent,
+    EditAppComponent
   ],
   imports: [
     CommonModule,
@@ -29,7 +38,14 @@ import { MatTableModule } from '@angular/material/table';
     MatProgressSpinnerModule,
     MatSnackBarModule,
     MatButtonModule,
-    MatTableModule
+    MatTableModule,
+    MatPaginatorModule,
+    MatIconModule,
+    MatSortModule,
+    MatProgressBarModule,
+    MatSelectModule,
+    MatTooltipModule,
+    MatDialogModule
   ],
   exports: []
 })

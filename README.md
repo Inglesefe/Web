@@ -1,27 +1,21 @@
 # Web
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 16.1.4.
+- dev: [![dev](https://github.com/Inglesefe/Web/actions/workflows/build.yml/badge.svg?branch=dev)](https://github.com/Inglesefe/Web/actions/workflows/build.yml)  
+- test: [![test](https://github.com/Inglesefe/Web/actions/workflows/build.yml/badge.svg?branch=test)](https://github.com/Inglesefe/Web/actions/workflows/build.yml)  
+- main: [![main](https://github.com/Inglesefe/Web/actions/workflows/build.yml/badge.svg?branch=main)](https://github.com/Inglesefe/Web/actions/workflows/build.yml)
 
-## Development server
+Aplicación web del nuevo sistema de Golden
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+## Guía de inicio
 
-## Code scaffolding
+Estas instrucciones le darán una copia del proyecto funcionando en su máquina local con fines de desarrollo y prueba.
+Consulte implementación para obtener notas sobre la implementación del proyecto en un sistema en vivo.
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+### Prerequisitos
 
-## Build
+Este proyecto está desarrollado en Angular 14 y hace uso de las diferentes APIs del sistema  
+[<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/cf/Angular_full_color_logo.svg/1200px-Angular_full_color_logo.svg.png" width="50px" height="50px" />](https://dotnet.microsoft.com/en-us/download/dotnet/7.0)  
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+## Despliegue
 
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+El proyecto se despliega como un contenedor en linux en el repositorio [Contenedores de GitHub](https://github.com/Inglesefe/Web/pkgs/container/Web)
