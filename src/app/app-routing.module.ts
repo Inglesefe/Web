@@ -6,6 +6,7 @@ import { HomeComponent } from './home/home.component';
 import { AppsComponent } from './auth/apps/apps.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { EditAppComponent } from './auth/edit-app/edit-app.component';
+import { AppRoleComponent } from './auth/app-role/app-role.component';
 
 const routes: Routes = [
   { path: "login", component: LoginComponent },
@@ -14,6 +15,7 @@ const routes: Routes = [
     children: [
       { path: "apps", component: AppsComponent },
       { path: "app/:id", component: EditAppComponent },
+      { path: "app-role/:id", component: AppRoleComponent },
       { path: "", component: DashboardComponent },
       { path: "**", component: DashboardComponent }
     ]

@@ -6,13 +6,8 @@ import { ApplicationService } from '../services/application.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatSort, Sort } from '@angular/material/sort';
 import { Router } from '@angular/router';
-import { MAT_DIALOG_DATA, MatDialog, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
-import { MatButtonModule } from '@angular/material/button';
-
-const ELEMENT_DATA: Application[] = [
-  { id: 1, name: 'Autenticación' },
-  { id: 2, name: 'Otra cosa' }
-];
+import { MatDialog } from '@angular/material/dialog';
+import { ConfirmComponent } from '../../utils/confirm/confirm.component';
 
 @Component({
   selector: 'app-apps',
@@ -20,7 +15,7 @@ const ELEMENT_DATA: Application[] = [
   styleUrls: ['./apps.component.scss']
 })
 export class AppsComponent {
-  displayedColumns: string[] = ['id', 'name', 'edit', 'delete'];
+  displayedColumns: string[] = ['id', 'name', 'roles', 'edit', 'delete'];
   loading = false;
   totalRows = 0;
   pageSize = 25;
@@ -32,7 +27,6 @@ export class AppsComponent {
   operatorFilter: string = "";
   valueFilter: string = "";
   filterStr: string = "";
-  option: string = "";
 
   /**
    * Inicializa el servicio a la api de autenticación
@@ -71,14 +65,16 @@ export class AppsComponent {
     this.router.navigate(["/home/app/0"]);
   }
 
+  roles(app: number) {
+    this.router.navigate(["/home/app-role/" + app]);
+  }
+
   edit(app: number) {
     this.router.navigate(["/home/app/" + app]);
   }
 
   delete(app: number) {
-    const dialogRef = this.dialog.open(ConfirmDialog, {
-      data: { option: this.option }
-    });
+    const dialogRef = this.dialog.open(ConfirmComponent);
 
     dialogRef.afterClosed().subscribe(result => {
       if (result === "ok") {
@@ -119,30 +115,5 @@ export class AppsComponent {
     this.valueFilter = "";
     this.filterStr = "";
     this.loadData();
-  }
-}
-
-@Component({
-  selector: 'confirm-dialog',
-  template: `<h1 mat-dialog-title>Confirmación</h1>
-<div mat-dialog-content>
-  ¿Desea eliminar este registro?
-</div>
-<div mat-dialog-actions>
-  <button mat-button mat-dialog-close (click)="cancel()">No</button>
-  <button mat-button mat-dialog-close (click)="ok()" cdkFocusInitial>Si</button>
-</div>`,
-  standalone: true,
-  imports: [MatDialogModule, MatButtonModule],
-})
-export class ConfirmDialog {
-  constructor(public dialogRef: MatDialogRef<ConfirmDialog>) { }
-
-  cancel() {
-    this.dialogRef.close("cancel");
-  }
-
-  ok() {
-    this.dialogRef.close("ok");
   }
 }

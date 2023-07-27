@@ -20,13 +20,18 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { EditAppComponent } from './edit-app/edit-app.component';
 import { MatDialogModule } from '@angular/material/dialog';
+import { UtilsModule } from '../utils/utils.module';
+import { AppRoleComponent } from './app-role/app-role.component';
+import { DragDropModule } from '@angular/cdk/drag-drop';
+
 
 @NgModule({
   declarations: [
     LoginComponent,
     LogoutComponent,
     AppsComponent,
-    EditAppComponent
+    EditAppComponent,
+    AppRoleComponent
   ],
   imports: [
     CommonModule,
@@ -45,7 +50,9 @@ import { MatDialogModule } from '@angular/material/dialog';
     MatProgressBarModule,
     MatSelectModule,
     MatTooltipModule,
-    MatDialogModule
+    MatDialogModule,
+    UtilsModule,
+    DragDropModule
   ],
   exports: []
 })

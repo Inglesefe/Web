@@ -22,7 +22,7 @@ export class EditAppComponent {
       this.app.id = parseInt(route.snapshot.params["id"]);
       this.loading = true;
       appService.read(this.app.id)
-        .then(x => { this.app = x; this.title = "Editar aplicación " + this.app.name; this.loading = false; })
+        .then(x => { this.app = x; this.title = "Editar aplicación: " + this.app.name; this.loading = false; })
         .catch(() => { this._snackBar.open("Hubo un error al consultar el listado de aplicaciones", "Cerrar", { duration: 2000 }); this.loading = false; });
     }
   }
