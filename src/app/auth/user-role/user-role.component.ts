@@ -1,24 +1,24 @@
 import { Component, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ApplicationService } from '../services/application.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { Application } from '../entities/Application';
 import { MatTableDataSource } from '@angular/material/table';
 import { Role } from '../entities/Role';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { CdkDragDrop } from '@angular/cdk/drag-drop';
+import { User } from '../entities/User';
+import { UserService } from '../services/user.service';
 
 /**
  * Listado de roles asignados y no asignados a una aplicación
  */
 @Component({
-  selector: 'app-app-role',
-  templateUrl: './app-role.component.html',
-  styleUrls: ['./app-role.component.scss']
+  selector: 'app-user-role',
+  templateUrl: './user-role.component.html',
+  styleUrls: ['./user-role.component.scss']
 })
-export class AppRoleComponent {
-  app: Application = new Application();
+export class UserRoleComponent {
+  user: User = new User();
   loading: boolean = false;
   loadingNot: boolean = false;
   title: string = "";
@@ -48,26 +48,26 @@ export class AppRoleComponent {
    * Inicializa el componente
    * @param route Router de entrada del componente
    * @param router Router de salida del componente
-   * @param appService Servicio para procesar los datos de la aplicación
+   * @param userService Servicio para procesar los datos de la aplicación
    * @param _snackBar Notificador de mensajes
    */
-  constructor(private route: ActivatedRoute, private router: Router, private appService: ApplicationService, private _snackBar: MatSnackBar) {
-    this.app.id = parseInt(route.snapshot.params["id"]);
+  constructor(private route: ActivatedRoute, private router: Router, private userService: UserService, private _snackBar: MatSnackBar) {
+    this.user.id = parseInt(route.snapshot.params["id"]);
     this.loading = true;
-    appService.read(this.app.id)
-      .then(x => { this.app = x; this.title = "Roles asociados con la aplicación: " + this.app.name; this.loading = false; this.loadDataNot(); this.loadData(); })
-      .catch(r => { if (r.status === 403) { this._snackBar.open("El usuario no tiene permisos para realizar esta acción", "Cerrar", { duration: 2000 }) } else { this._snackBar.open("Hubo un error al consultar la aplicación", "Cerrar", { duration: 2000 }); } this.loading = false; });
+    userService.read(this.user.id)
+      .then(x => { this.user = x; this.title = "Roles asociados con el usuario: " + this.user.name; this.loading = false; this.loadDataNot(); this.loadData(); })
+      .catch(r => { if (r.status === 403) { this._snackBar.open("El usuario no tiene permisos para realizar esta acción", "Cerrar", { duration: 2000 }) } else { this._snackBar.open("Hubo un error al consultar el usuario", "Cerrar", { duration: 2000 }); } this.loading = false; });
   }
 
   /**
-   * Retorna al listado de aplicaciones
+   * Retorna al listado de usuarios
    */
   back() {
-    this.router.navigate(["/home/apps"]);
+    this.router.navigate(["/home/users"]);
   }
 
   /**
-   * Carga el listado de roles no asociados a la aplicación
+   * Carga el listado de roles no asociados al usuario
    */
   loadDataNot() {
     this.loadingNot = true;
@@ -77,7 +77,7 @@ export class AppRoleComponent {
     } else {
       orders = "idrole asc";
     }
-    this.appService.listNotRoles(this.filterStr, orders, this.pageSize, this.currentPage * this.pageSize, this.app.id)
+    this.userService.listNotRoles(this.filterStr, orders, this.pageSize, this.currentPage * this.pageSize, this.user.id)
       .then(r => { this.totalRowsNot = r.total; this.dataSourceNot.data = r.list; this.loadingNot = false; })
       .catch(r => { if (r.status === 403) { this._snackBar.open("El usuario no tiene permisos para realizar esta acción", "Cerrar", { duration: 2000 }) } else { this._snackBar.open("Hubo un error al consultar el listado de roles no asignados", "Cerrar", { duration: 2000 }); } this.loadingNot = false; });
   }
@@ -99,7 +99,7 @@ export class AppRoleComponent {
   }
 
   /**
-   * Carga el listado de roles asociados a la aplicación
+   * Carga el listado de roles asociados al usuario
    */
   loadData() {
     this.loading = true;
@@ -109,7 +109,7 @@ export class AppRoleComponent {
     } else {
       orders = "r.idrole asc";
     }
-    this.appService.listRoles(this.filterStr, orders, this.pageSize, this.currentPage * this.pageSize, this.app.id)
+    this.userService.listRoles(this.filterStr, orders, this.pageSize, this.currentPage * this.pageSize, this.user.id)
       .then(r => { this.totalRows = r.total; this.dataSource.data = r.list; this.loading = false; })
       .catch(r => { if (r.status === 403) { this._snackBar.open("El usuario no tiene permisos para realizar esta acción", "Cerrar", { duration: 2000 }) } else { this._snackBar.open("Hubo un error al consultar el listado de roles asignados", "Cerrar", { duration: 2000 }); } this.loading = false; });
   }
@@ -139,9 +139,9 @@ export class AppRoleComponent {
       let role = new Role();
       role.id = event.item.data.id;
       role.name = event.item.data.name;
-      this.appService.insertRole(role, this.app.id)
+      this.userService.insertRole(role, this.user.id)
         .then(r => { this._snackBar.open("Rol asignado con éxito", "Cerrar", { duration: 2000 }); this.loadData(); this.loadDataNot(); })
-        .catch(r => { if (r.status === 403) { this._snackBar.open("El usuario no tiene permisos para realizar esta acción", "Cerrar", { duration: 2000 }) } else { this._snackBar.open("Hubo un error al asignar el rol a la aplicación", "Cerrar", { duration: 2000 }); } });
+        .catch(r => { if (r.status === 403) { this._snackBar.open("El usuario no tiene permisos para realizar esta acción", "Cerrar", { duration: 2000 }) } else { this._snackBar.open("Hubo un error al asignar el rol al usuario", "Cerrar", { duration: 2000 }); } });
     }
   }
 
@@ -151,9 +151,9 @@ export class AppRoleComponent {
    */
   deleteRole(event: CdkDragDrop<string[]>) {
     if (event.container !== event.previousContainer) {
-      this.appService.deleteRole(event.item.data.id, this.app.id)
+      this.userService.deleteRole(event.item.data.id, this.user.id)
         .then(r => { this._snackBar.open("Rol eliminado con éxito", "Cerrar", { duration: 2000 }); this.loadData(); this.loadDataNot(); })
-        .catch(r => { if (r.status === 403) { this._snackBar.open("El usuario no tiene permisos para realizar esta acción", "Cerrar", { duration: 2000 }) } else { this._snackBar.open("Hubo un error al eliminar el rol a la aplicación", "Cerrar", { duration: 2000 }); } });
+        .catch(r => { if (r.status === 403) { this._snackBar.open("El usuario no tiene permisos para realizar esta acción", "Cerrar", { duration: 2000 }) } else { this._snackBar.open("Hubo un error al eliminar el rol al usuario", "Cerrar", { duration: 2000 }); } });
     }
   }
 }

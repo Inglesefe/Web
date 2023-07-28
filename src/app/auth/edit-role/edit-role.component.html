@@ -3,12 +3,12 @@
   <div>
     <mat-form-field class="field">
       <mat-label>ID</mat-label>
-      <input matInput type="number" [(ngModel)]="app.id" readonly />
+      <input matInput type="number" [(ngModel)]="role.id" readonly />
     </mat-form-field>
     <br />
     <mat-form-field class="field">
       <mat-label>Nombre</mat-label>
-      <input matInput type="text" [(ngModel)]="app.name" [readonly]="loading"/>
+      <input matInput type="text" [(ngModel)]="role.name" [readonly]="loading"/>
     </mat-form-field>
     <div class="field buttons">
       <button mat-flat-button color="accent" (click)="back()" [disabled]="loading">

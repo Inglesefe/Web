@@ -1,0 +1,36 @@
+<div class="formContainer">
+  <h1>{{title}}</h1>
+  <div>
+    <mat-form-field class="field">
+      <mat-label>ID</mat-label>
+      <input matInput type="number" [(ngModel)]="user.id" readonly />
+    </mat-form-field>
+    <br />
+    <mat-form-field class="field">
+      <mat-label>Login</mat-label>
+      <input matInput type="email" [(ngModel)]="user.login" [readonly]="loading" />
+    </mat-form-field>
+    <br />
+    <mat-form-field class="field">
+      <mat-label>Nombre</mat-label>
+      <input matInput type="text" [(ngModel)]="user.name" [readonly]="loading" />
+    </mat-form-field>
+    <br />
+    <mat-form-field class="field">
+      <mat-label>Activo</mat-label>
+      <mat-select [(value)]="currentActive">
+        <mat-option value="false">No</mat-option>
+        <mat-option value="true">Si</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <div class="field buttons">
+      <button mat-flat-button color="accent" (click)="back()" [disabled]="loading">
+        <span>Volver</span>
+      </button>
+      &nbsp;
+      <button mat-flat-button color="primary" (click)="save()" [disabled]="loading">
+        <span>Guardar</span>
+      </button>
+    </div>
+  </div>
+</div>

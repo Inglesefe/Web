@@ -7,6 +7,13 @@ import { AppsComponent } from './auth/apps/apps.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { EditAppComponent } from './auth/edit-app/edit-app.component';
 import { AppRoleComponent } from './auth/app-role/app-role.component';
+import { RolesComponent } from './auth/roles/roles.component';
+import { EditRoleComponent } from './auth/edit-role/edit-role.component';
+import { RoleAppComponent } from './auth/role-app/role-app.component';
+import { RoleUserComponent } from './auth/role-user/role-user.component';
+import { UsersComponent } from './auth/users/users.component';
+import { EditUserComponent } from './auth/edit-user/edit-user.component';
+import { UserRoleComponent } from './auth/user-role/user-role.component';
 
 const routes: Routes = [
   { path: "login", component: LoginComponent },
@@ -16,6 +23,13 @@ const routes: Routes = [
       { path: "apps", component: AppsComponent },
       { path: "app/:id", component: EditAppComponent },
       { path: "app-role/:id", component: AppRoleComponent },
+      { path: "roles", component: RolesComponent },
+      { path: "role/:id", component: EditRoleComponent },
+      { path: "role-app/:id", component: RoleAppComponent },
+      { path: "role-user/:id", component: RoleUserComponent },
+      { path: "users", component: UsersComponent },
+      { path: "user/:id", component: EditUserComponent },
+      { path: "user-role/:id", component: UserRoleComponent },
       { path: "", component: DashboardComponent },
       { path: "**", component: DashboardComponent }
     ]

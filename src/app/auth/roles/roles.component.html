@@ -3,18 +3,18 @@
 <table>
   <tr>
     <td>
-      <button matTooltip="Adicionar nueva aplicación" mat-icon-button (click)="add()">
+      <button matTooltip="Adicionar nuevo rol" mat-icon-button (click)="add()">
         <mat-icon color="primary">add</mat-icon>
       </button>
     </td>
-    <td><h2>Listado de aplicaciones</h2></td>
+    <td><h2>Listado de roles</h2></td>
     <td>
       Filtros:
       &nbsp;
       <mat-form-field>
         <mat-label>Campo</mat-label>
         <mat-select [(value)]="fieldFilter">
-          <mat-option value="idapplication">ID</mat-option>
+          <mat-option value="idrole">ID</mat-option>
           <mat-option value="name">Nombre</mat-option>
         </mat-select>
       </mat-form-field>
@@ -34,7 +34,7 @@
         <input matInput type="text" [(ngModel)]="valueFilter" />
       </mat-form-field>
       &nbsp;
-      <button mat-icon-button matTooltip="Buscar aplicación" (click)="filter()">
+      <button mat-icon-button matTooltip="Buscar rol" (click)="filter()">
         <mat-icon color="primary">search</mat-icon>
       </button>
       &nbsp;
@@ -53,18 +53,26 @@
     <th mat-header-cell *matHeaderCellDef mat-sort-header>Nombre</th>
     <td mat-cell *matCellDef="let element">{{element.name}}</td>
   </ng-container>
-  <ng-container matColumnDef="roles">
-    <th mat-header-cell *matHeaderCellDef>Roles</th>
+  <ng-container matColumnDef="users">
+    <th mat-header-cell *matHeaderCellDef>Usuarios</th>
     <td mat-cell *matCellDef="let element">
-      <button mat-icon-button matTooltip="Roles de la aplicación" (click)="roles(element.id)">
+      <button mat-icon-button matTooltip="Usuarios del rol" (click)="users(element.id)">
         <mat-icon>group</mat-icon>
+      </button>
+    </td>
+  </ng-container>
+  <ng-container matColumnDef="apps">
+    <th mat-header-cell *matHeaderCellDef>Aplicaciones</th>
+    <td mat-cell *matCellDef="let element">
+      <button mat-icon-button matTooltip="Aplicaciones del rol" (click)="apps(element.id)">
+        <mat-icon>apps</mat-icon>
       </button>
     </td>
   </ng-container>
   <ng-container matColumnDef="edit">
     <th mat-header-cell *matHeaderCellDef>Editar</th>
     <td mat-cell *matCellDef="let element">
-      <button mat-icon-button matTooltip="Editar aplicación" (click)="edit(element.id)">
+      <button mat-icon-button matTooltip="Editar rol" (click)="edit(element.id)">
         <mat-icon color="accent">edit</mat-icon>
       </button>
     </td>
@@ -72,7 +80,7 @@
   <ng-container matColumnDef="delete">
     <th mat-header-cell *matHeaderCellDef>Eliminar</th>
     <td mat-cell *matCellDef="let element">
-      <button mat-icon-button matTooltip="Eliminar aplicación" (click)="delete(element.id)">
+      <button mat-icon-button matTooltip="Eliminar rol" (click)="delete(element.id)">
         <mat-icon color="warn">delete</mat-icon>
       </button>
     </td>

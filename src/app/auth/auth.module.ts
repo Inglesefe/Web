@@ -23,6 +23,13 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { UtilsModule } from '../utils/utils.module';
 import { AppRoleComponent } from './app-role/app-role.component';
 import { DragDropModule } from '@angular/cdk/drag-drop';
+import { RolesComponent } from './roles/roles.component';
+import { EditRoleComponent } from './edit-role/edit-role.component';
+import { RoleAppComponent } from './role-app/role-app.component';
+import { RoleUserComponent } from './role-user/role-user.component';
+import { UsersComponent } from './users/users.component';
+import { EditUserComponent } from './edit-user/edit-user.component';
+import { UserRoleComponent } from './user-role/user-role.component';
 
 
 @NgModule({
@@ -31,7 +38,14 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
     LogoutComponent,
     AppsComponent,
     EditAppComponent,
-    AppRoleComponent
+    AppRoleComponent,
+    RolesComponent,
+    EditRoleComponent,
+    RoleAppComponent,
+    RoleUserComponent,
+    UsersComponent,
+    EditUserComponent,
+    UserRoleComponent
   ],
   imports: [
     CommonModule,

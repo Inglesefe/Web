@@ -13,7 +13,7 @@
            matSortDirection="asc"
            cdkDropList
            cdkDropListSortingDisabled
-           (cdkDropListDropped)="deleteRole($event)"
+           (cdkDropListDropped)="deleteApp($event)"
            #notRoles="cdkDropList"
            [cdkDropListConnectedTo]="[roles]">
       <ng-container matColumnDef="id">
@@ -42,7 +42,7 @@
            matSortDirection="asc"
            cdkDropList
            cdkDropListSortingDisabled
-           (cdkDropListDropped)="insertRole($event)"
+           (cdkDropListDropped)="insertApp($event)"
            #roles="cdkDropList"
            [cdkDropListConnectedTo]="[notRoles]">
       <ng-container matColumnDef="id">

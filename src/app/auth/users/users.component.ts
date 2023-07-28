@@ -1,29 +1,29 @@
 import { Component, ViewChild } from '@angular/core';
-import { Application } from '../entities/Application';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
-import { ApplicationService } from '../services/application.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatSort } from '@angular/material/sort';
 import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmComponent } from '../../utils/confirm/confirm.component';
+import { User } from '../entities/User';
+import { UserService } from '../services/user.service';
 
 /**
- * Listado de aplicaciones
+ * Listado de usuarios
  */
 @Component({
-  selector: 'app-apps',
-  templateUrl: './apps.component.html',
-  styleUrls: ['./apps.component.scss']
+  selector: 'app-users',
+  templateUrl: './users.component.html',
+  styleUrls: ['./users.component.scss']
 })
-export class AppsComponent {
-  displayedColumns: string[] = ['id', 'name', 'roles', 'edit', 'delete'];
+export class UsersComponent {
+  displayedColumns: string[] = ['id', 'login', 'name', 'active', 'roles', 'edit', 'delete'];
   loading = false;
   totalRows = 0;
   pageSize = 25;
   currentPage = 0;
-  dataSource: MatTableDataSource<Application> = new MatTableDataSource();
+  dataSource: MatTableDataSource<User> = new MatTableDataSource();
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
   fieldFilter: string = "";
@@ -33,31 +33,31 @@ export class AppsComponent {
 
   /**
    * Inicializa el paginador, el ordenador y carga los datos
-   * @param appService Servicio para consultar los datos
+   * @param userService Servicio para consultar los datos
    * @param _snackBar Notificador de mensajes
    * @param router Enrutador
    * @param dialog Mensaje de confirmación
    */
-  constructor(private appService: ApplicationService, private _snackBar: MatSnackBar, private router: Router, public dialog: MatDialog) {
+  constructor(private userService: UserService, private _snackBar: MatSnackBar, private router: Router, public dialog: MatDialog) {
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
     this.loadData();
   }
 
   /**
-   * Carga el listado de aplicaiones
+   * Carga el listado de usuarios
    */
   loadData() {
     this.loading = true;
     let orders: string = "";
     if (this.sort != undefined) {
-      orders = (this.sort.active === "id" ? "idapplication" : this.sort.active) + " " + (this.sort.direction === "" ? "asc" : this.sort.direction);
+      orders = (this.sort.active === "id" ? "iduser" : this.sort.active) + " " + (this.sort.direction === "" ? "asc" : this.sort.direction);
     } else {
-      orders = "idapplication asc";
+      orders = "iduser asc";
     }
-    this.appService.list(this.filterStr, orders, this.pageSize, this.currentPage * this.pageSize)
+    this.userService.list(this.filterStr, orders, this.pageSize, this.currentPage * this.pageSize)
       .then(r => { this.totalRows = r.total; this.dataSource.data = r.list; this.loading = false; })
-      .catch(r => { if (r.status === 403) { this._snackBar.open("El usuario no tiene permisos para realizar esta acción", "Cerrar", { duration: 2000 }) } else { this._snackBar.open("Hubo un error al consultar el listado de aplicaciones", "Cerrar", { duration: 2000 }); } this.loading = false; });
+      .catch(r => { if (r.status === 403) { this._snackBar.open("El usuario no tiene permisos para realizar esta acción", "Cerrar", { duration: 2000 }) } else { this._snackBar.open("Hubo un error al consultar el listado de usuarios", "Cerrar", { duration: 2000 }); } this.loading = false; });
   }
 
   /**
@@ -81,43 +81,43 @@ export class AppsComponent {
    * Redirecciona al formulario de adición
    */
   add() {
-    this.router.navigate(["/home/app/0"]);
+    this.router.navigate(["/home/user/0"]);
   }
 
   /**
-   * Redirecciona al listado de roles asociados y no asociados a la aplicación
-   * @param app Identificador de la aplicación
+   * Redirecciona al listado de roles asociados y no asociados al usuario
+   * @param user Identificador del usuario
    */
-  roles(app: number) {
-    this.router.navigate(["/home/app-role/" + app]);
+  roles(user: number) {
+    this.router.navigate(["/home/user-role/" + user]);
   }
 
   /**
-   * Redirecciona al formulario de edición de aplicación
-   * @param app Identificador de la aplicación
+   * Redirecciona al formulario de edición de usuario
+   * @param user Identificador del usuario
    */
-  edit(app: number) {
-    this.router.navigate(["/home/app/" + app]);
+  edit(user: number) {
+    this.router.navigate(["/home/user/" + user]);
   }
 
   /**
-   * Elimina una aplicación
-   * @param app Identificador de la aplicación
+   * Elimina un usuario
+   * @param user Identificador del usuario
    */
-  delete(app: number) {
+  delete(user: number) {
     const dialogRef = this.dialog.open(ConfirmComponent);
 
     dialogRef.afterClosed().subscribe(result => {
       if (result === "ok") {
-        this.appService.delete(app)
-          .then(x => { this._snackBar.open("Aplicación eliminada correctamente", "Cerrar", { duration: 2000 }); this.loadData(); })
-          .catch(r => { if (r.status === 403) { this._snackBar.open("El usuario no tiene permisos para realizar esta acción", "Cerrar", { duration: 2000 }) } else { this._snackBar.open("Hubo un error al eliminar la aplicación", "Cerrar", { duration: 2000 }); } })
+        this.userService.delete(user)
+          .then(x => { this._snackBar.open("Usuario eliminado correctamente", "Cerrar", { duration: 2000 }); this.loadData(); })
+          .catch(r => { if (r.status === 403) { this._snackBar.open("El usuario no tiene permisos para realizar esta acción", "Cerrar", { duration: 2000 }) } else { this._snackBar.open("Hubo un error al eliminar el usuario", "Cerrar", { duration: 2000 }); } })
       }
     });
   }
 
   /**
-   * Aplica filtros al listado de aplicaciones
+   * Aplica filtros al listado de usuarios
    */
   filter() {
     if (this.fieldFilter !== "" && this.operatorFilter !== "" && this.valueFilter !== "") {
