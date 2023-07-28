@@ -20,11 +20,19 @@ spec:
       labels:
         app: web
     spec:
+      volumes:
+        - name: cert-volume
+          secret:
+            secretName: certificados
       containers:
         - name: web
           image: ghcr.io/inglesefe/web:--version--
           ports:
             - containerPort: 80
+          volumeMounts:
+            - name: cert-volume
+              readOnly: true
+              mountPath: "/https"
 
 ---
 
