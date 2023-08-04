@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ApplicationService } from '../services/application.service';
-import { Application } from '../entities/Application';
+import { Application } from '../../entities/Application';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
 /**

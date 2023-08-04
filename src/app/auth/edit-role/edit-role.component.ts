@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { Role } from '../entities/Role';
+import { Role } from '../../entities/Role';
 import { RoleService } from '../services/role.service';
 
 /**

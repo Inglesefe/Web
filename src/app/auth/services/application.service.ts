@@ -2,9 +2,9 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { lastValueFrom } from 'rxjs';
 import { environment } from '../../../environment/environment';
-import { ListResult } from '../entities/ListResult';
-import { Application } from '../entities/Application';
-import { Role } from '../entities/Role';
+import { ListResult } from '../../entities/ListResult';
+import { Application } from '../../entities/Application';
+import { Role } from '../../entities/Role';
 
 @Injectable({
   providedIn: 'root'

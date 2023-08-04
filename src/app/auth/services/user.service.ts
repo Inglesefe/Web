@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
-import { LoginResponse } from '../entities/LoginResponse';
+import { LoginResponse } from '../../entities/LoginResponse';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { lastValueFrom } from 'rxjs';
 import * as CryptoJS from 'crypto-js';
 import { environment } from '../../../environment/environment';
-import { ListResult } from '../entities/ListResult';
-import { User } from '../entities/User';
-import { Role } from '../entities/Role';
+import { ListResult } from '../../entities/ListResult';
+import { User } from '../../entities/User';
+import { Role } from '../../entities/Role';
 
 @Injectable({
   providedIn: 'root'

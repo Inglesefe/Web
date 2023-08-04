@@ -1,29 +1,29 @@
 import { Component, ViewChild } from '@angular/core';
-import { Application } from '../../entities/Application';
 import { MatTableDataSource } from '@angular/material/table';
+import { Template } from '../../entities/Template';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
-import { ApplicationService } from '../services/application.service';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatSort } from '@angular/material/sort';
+import { TemplateService } from '../services/template.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmComponent } from '../../utils/confirm/confirm.component';
 
 /**
- * Listado de aplicaciones
+ * Listado de plantillas
  */
 @Component({
-  selector: 'app-apps',
-  templateUrl: './apps.component.html',
-  styleUrls: ['./apps.component.scss']
+  selector: 'app-templates',
+  templateUrl: './templates.component.html',
+  styleUrls: ['./templates.component.scss']
 })
-export class AppsComponent {
-  displayedColumns: string[] = ['id', 'name', 'roles', 'edit', 'delete'];
+export class TemplatesComponent {
+  displayedColumns: string[] = ['id', 'name', 'edit', 'delete'];
   loading = false;
   totalRows = 0;
   pageSize = 25;
   currentPage = 0;
-  dataSource: MatTableDataSource<Application> = new MatTableDataSource();
+  dataSource: MatTableDataSource<Template> = new MatTableDataSource();
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
   fieldFilter: string = "";
@@ -33,31 +33,31 @@ export class AppsComponent {
 
   /**
    * Inicializa el paginador, el ordenador y carga los datos
-   * @param appService Servicio para consultar los datos
+   * @param templateService Servicio para consultar los datos
    * @param _snackBar Notificador de mensajes
    * @param router Enrutador
    * @param dialog Mensaje de confirmación
    */
-  constructor(private appService: ApplicationService, private _snackBar: MatSnackBar, private router: Router, public dialog: MatDialog) {
+  constructor(private templateService: TemplateService, private _snackBar: MatSnackBar, private router: Router, public dialog: MatDialog) {
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
     this.loadData();
   }
 
   /**
-   * Carga el listado de aplicaciones
+   * Carga el listado de plantillas
    */
   loadData() {
     this.loading = true;
     let orders: string = "";
     if (this.sort != undefined) {
-      orders = (this.sort.active === "id" ? "idapplication" : this.sort.active) + " " + (this.sort.direction === "" ? "asc" : this.sort.direction);
+      orders = (this.sort.active === "id" ? "idtemplate" : this.sort.active) + " " + (this.sort.direction === "" ? "asc" : this.sort.direction);
     } else {
-      orders = "idapplication asc";
+      orders = "idtemplate asc";
     }
-    this.appService.list(this.filterStr, orders, this.pageSize, this.currentPage * this.pageSize)
+    this.templateService.list(this.filterStr, orders, this.pageSize, this.currentPage * this.pageSize)
       .then(r => { this.totalRows = r.total; this.dataSource.data = r.list; this.loading = false; })
-      .catch(r => { if (r.status === 403) { this._snackBar.open("El usuario no tiene permisos para realizar esta acción", "Cerrar", { duration: 2000 }) } else { this._snackBar.open("Hubo un error al consultar el listado de aplicaciones", "Cerrar", { duration: 2000 }); } this.loading = false; });
+      .catch(r => { if (r.status === 403) { this._snackBar.open("El usuario no tiene permisos para realizar esta acción", "Cerrar", { duration: 2000 }) } else { this._snackBar.open("Hubo un error al consultar el listado de plantillas", "Cerrar", { duration: 2000 }); } this.loading = false; });
   }
 
   /**
@@ -81,43 +81,35 @@ export class AppsComponent {
    * Redirecciona al formulario de adición
    */
   add() {
-    this.router.navigate(["/home/app/0"]);
+    this.router.navigate(["/home/template/0"]);
   }
 
   /**
-   * Redirecciona al listado de roles asociados y no asociados a la aplicación
-   * @param app Identificador de la aplicación
+   * Redirecciona al formulario de edición de plantilla
+   * @param template Identificador de la plantilla
    */
-  roles(app: number) {
-    this.router.navigate(["/home/app-role/" + app]);
+  edit(template: number) {
+    this.router.navigate(["/home/template/" + template]);
   }
 
   /**
-   * Redirecciona al formulario de edición de aplicación
-   * @param app Identificador de la aplicación
+   * Elimina una plantilla
+   * @param template Identificador de la plantilla
    */
-  edit(app: number) {
-    this.router.navigate(["/home/app/" + app]);
-  }
-
-  /**
-   * Elimina una aplicación
-   * @param app Identificador de la aplicación
-   */
-  delete(app: number) {
+  delete(template: number) {
     const dialogRef = this.dialog.open(ConfirmComponent);
 
     dialogRef.afterClosed().subscribe(result => {
       if (result === "ok") {
-        this.appService.delete(app)
-          .then(x => { this._snackBar.open("Aplicación eliminada correctamente", "Cerrar", { duration: 2000 }); this.loadData(); })
-          .catch(r => { if (r.status === 403) { this._snackBar.open("El usuario no tiene permisos para realizar esta acción", "Cerrar", { duration: 2000 }) } else { this._snackBar.open("Hubo un error al eliminar la aplicación", "Cerrar", { duration: 2000 }); } })
+        this.templateService.delete(template)
+          .then(x => { this._snackBar.open("Plantilla eliminada correctamente", "Cerrar", { duration: 2000 }); this.loadData(); })
+          .catch(r => { if (r.status === 403) { this._snackBar.open("El usuario no tiene permisos para realizar esta acción", "Cerrar", { duration: 2000 }) } else { this._snackBar.open("Hubo un error al eliminar la plantilla", "Cerrar", { duration: 2000 }); } })
       }
     });
   }
 
   /**
-   * Aplica filtros al listado de aplicaciones
+   * Aplica filtros al listado de plantillas
    */
   filter() {
     if (this.fieldFilter !== "" && this.operatorFilter !== "" && this.valueFilter !== "") {

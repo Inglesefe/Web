@@ -14,6 +14,10 @@ import { RoleUserComponent } from './auth/role-user/role-user.component';
 import { UsersComponent } from './auth/users/users.component';
 import { EditUserComponent } from './auth/edit-user/edit-user.component';
 import { UserRoleComponent } from './auth/user-role/user-role.component';
+import { TemplatesComponent } from './noti/templates/templates.component';
+import { EditTemplateComponent } from './noti/edit-template/edit-template.component';
+import { NotificationsComponent } from './noti/notifications/notifications.component';
+import { EditNotificationComponent } from './noti/edit-notification/edit-notification.component';
 
 const routes: Routes = [
   { path: "login", component: LoginComponent },
@@ -30,6 +34,10 @@ const routes: Routes = [
       { path: "users", component: UsersComponent },
       { path: "user/:id", component: EditUserComponent },
       { path: "user-role/:id", component: UserRoleComponent },
+      { path: "templates", component: TemplatesComponent },
+      { path: "template/:id", component: EditTemplateComponent },
+      { path: "notifications", component: NotificationsComponent },
+      { path: "notification/:id", component: EditNotificationComponent },
       { path: "", component: DashboardComponent },
       { path: "**", component: DashboardComponent }
     ]

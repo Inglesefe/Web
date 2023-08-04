@@ -2,11 +2,11 @@ import { Component, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatTableDataSource } from '@angular/material/table';
-import { Role } from '../entities/Role';
+import { Role } from '../../entities/Role';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { CdkDragDrop } from '@angular/cdk/drag-drop';
-import { User } from '../entities/User';
+import { User } from '../../entities/User';
 import { UserService } from '../services/user.service';
 
 /**

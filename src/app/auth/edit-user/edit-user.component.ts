@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { User } from '../entities/User';
+import { User } from '../../entities/User';
 import { UserService } from '../services/user.service';
 
 /**

@@ -6,7 +6,7 @@ import { MatSort } from '@angular/material/sort';
 import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmComponent } from '../../utils/confirm/confirm.component';
-import { User } from '../entities/User';
+import { User } from '../../entities/User';
 import { UserService } from '../services/user.service';
 
 /**

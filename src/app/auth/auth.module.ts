@@ -21,8 +21,9 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { EditAppComponent } from './edit-app/edit-app.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { UtilsModule } from '../utils/utils.module';
-import { AppRoleComponent } from './app-role/app-role.component';
 import { DragDropModule } from '@angular/cdk/drag-drop';
+
+import { AppRoleComponent } from './app-role/app-role.component';
 import { RolesComponent } from './roles/roles.component';
 import { EditRoleComponent } from './edit-role/edit-role.component';
 import { RoleAppComponent } from './role-app/role-app.component';

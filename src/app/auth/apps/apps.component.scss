@@ -5,3 +5,7 @@ table {
 .mat-column-id, .mat-column-edit, .mat-column-delete, .mat-column-roles {
   width: 30px;
 }
+
+.ag-root-wrapper-body .ag-layout-normal {
+  height: 100% !important;
+}

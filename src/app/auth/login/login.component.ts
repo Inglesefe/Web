@@ -3,7 +3,7 @@ import { UserService } from '../services/user.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import jwt_decode from 'jwt-decode';
-import { JwtToken } from '../entities/JwtToken';
+import { JwtToken } from '../../entities/JwtToken';
 
 @Component({
   selector: 'app-login',
