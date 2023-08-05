@@ -22,6 +22,7 @@ import { EditAppComponent } from './edit-app/edit-app.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { UtilsModule } from '../utils/utils.module';
 import { DragDropModule } from '@angular/cdk/drag-drop';
+import { AppRoutingModule } from '../app-routing.module';
 
 import { AppRoleComponent } from './app-role/app-role.component';
 import { RolesComponent } from './roles/roles.component';
@@ -31,6 +32,8 @@ import { RoleUserComponent } from './role-user/role-user.component';
 import { UsersComponent } from './users/users.component';
 import { EditUserComponent } from './edit-user/edit-user.component';
 import { UserRoleComponent } from './user-role/user-role.component';
+import { RecoveryComponent } from './recovery/recovery.component';
+import { ChangePasswordComponent } from './change-password/change-password.component';
 
 
 @NgModule({
@@ -46,7 +49,9 @@ import { UserRoleComponent } from './user-role/user-role.component';
     RoleUserComponent,
     UsersComponent,
     EditUserComponent,
-    UserRoleComponent
+    UserRoleComponent,
+    RecoveryComponent,
+    ChangePasswordComponent
   ],
   imports: [
     CommonModule,
@@ -67,7 +72,8 @@ import { UserRoleComponent } from './user-role/user-role.component';
     MatTooltipModule,
     MatDialogModule,
     UtilsModule,
-    DragDropModule
+    DragDropModule,
+    AppRoutingModule
   ],
   exports: []
 })

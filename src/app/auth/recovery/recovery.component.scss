@@ -4,7 +4,7 @@
   background: linear-gradient(180deg, rgba(36,179,217,1) 0%, rgba(0,126,203,1) 100%);
 }
 
-.formLogin {
+.formRecovery {
   position: absolute;
   top: 50%;
   left: 50%;
@@ -12,9 +12,9 @@
   padding: 10px;
 }
 
-.btnLoginContainer{
-    width: 100%;
-    text-align: right;
+.btnLoginContainer {
+  width: 100%;
+  text-align: right;
 }
 
 .field {
@@ -23,9 +23,10 @@
 }
 
 .logo {
-    text-align: center;
+  text-align: center;
 }
 
-.recovery{
-    color: white;
+.description {
+  color: #FAFAFA;
+  width: 400px;
 }

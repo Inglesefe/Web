@@ -7,6 +7,8 @@ import { environment } from '../../../environment/environment';
 import { ListResult } from '../../entities/ListResult';
 import { User } from '../../entities/User';
 import { Role } from '../../entities/Role';
+import { ChangePasswordResponse } from '../../entities/ChangePasswordResponse';
+import { ChangePasswordRequest } from '../../entities/ChangePasswordRequest';
 
 @Injectable({
   providedIn: 'root'
@@ -70,6 +72,15 @@ export class UserService {
   }
 
   /**
+   * Realiza una solicitud de cambio de contraseña
+   * @param login Login del usuario
+   * @returns Promesa con el resultado
+   */
+  public recovery(login: string): Promise<LoginResponse> {
+    return lastValueFrom(this.http.get<LoginResponse>(environment.API_AUTH_URL + "User/recovery/" + encodeURI(login)));
+  }
+
+  /**
    * Inserta un usuario
    * @param user Usuario a insertar
    * @returns Promesa con el resultado
@@ -87,6 +98,24 @@ export class UserService {
   public update(user: User): Promise<User> {
     let headers: HttpHeaders = new HttpHeaders({ "Authorization": "Bearer " + sessionStorage.getItem("golden-token"), "Content-Type": "application/json" });
     return lastValueFrom(this.http.put<User>(environment.API_AUTH_URL + "User", user, { headers }));
+  }
+
+  /**
+   * Actualiza la contraseña de un usuario
+   * @param user Usuario a actualizar
+   * @returns Promesa con el resultado
+   */
+  public changePassword(data: ChangePasswordRequest): Promise<ChangePasswordResponse> {
+    let key = CryptoJS.enc.Utf8.parse(environment.AES_KEY);
+    let iv = CryptoJS.enc.Utf8.parse(environment.AES_IV);
+    let encrypted = CryptoJS.AES.encrypt(CryptoJS.enc.Utf8.parse(data.password), key, {
+      keySize: 128 / 8,
+      iv: iv,
+      mode: CryptoJS.mode.CBC,
+      padding: CryptoJS.pad.Pkcs7
+    });
+    data.password = encrypted.toString();
+    return lastValueFrom(this.http.put<ChangePasswordResponse>(environment.API_AUTH_URL + "User/password", data));
   }
 
   /**

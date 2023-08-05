@@ -18,9 +18,13 @@ import { TemplatesComponent } from './noti/templates/templates.component';
 import { EditTemplateComponent } from './noti/edit-template/edit-template.component';
 import { NotificationsComponent } from './noti/notifications/notifications.component';
 import { EditNotificationComponent } from './noti/edit-notification/edit-notification.component';
+import { RecoveryComponent } from './auth/recovery/recovery.component';
+import { ChangePasswordComponent } from './auth/change-password/change-password.component';
 
 const routes: Routes = [
   { path: "login", component: LoginComponent },
+  { path: "recovery", component: RecoveryComponent },
+  { path: "change-password/:token", component: ChangePasswordComponent },
   {
     path: "home", component: HomeComponent,
     children: [
