@@ -13,6 +13,7 @@ jobs:
       version: 1.0.${{ github.run_number }}
       image_name: ${{ github.repository }}
       username: leandrobaena@gmail.com
+      sonarQubeKey: sqa_c24b73b519e482496ce1070a56f68c87a1c384c5
 
     steps:
     - name: Descarga del código
@@ -24,7 +25,11 @@ jobs:
       run: pushd ${{ github.workspace }}; npm install;
 
     - name: Compilar la solución
-      run: pushd ${{ github.workspace }}; ng build;
+      run: ng build;
+
+    - name: Ejecutar SonarQube
+      if: ${{ github.ref_name == 'dev' }}
+      run: sonar-scanner
 
     - name: Conectar al repositorio de imágenes
       run: docker login ghcr.io -u ${{ env.username }} -p ${{ secrets.GITHUB_TOKEN }}
