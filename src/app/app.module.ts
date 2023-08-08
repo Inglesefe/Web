@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { AuthModule } from './auth/auth.module';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
@@ -14,9 +13,13 @@ import { MatExpansionModule } from '@angular/material/expansion';
 import { MatPaginatorIntl } from '@angular/material/paginator';
 import { MatSelectModule } from '@angular/material/select';
 
+import { AuthModule } from './auth/auth.module';
+import { NotiModule } from './noti/noti.module';
+
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
+
 import { MatPaginatorSpanish } from './MatPaginatorSpanish';
 
 @NgModule({
@@ -30,6 +33,7 @@ import { MatPaginatorSpanish } from './MatPaginatorSpanish';
     AppRoutingModule,
     BrowserAnimationsModule,
     AuthModule,
+    NotiModule,
     MatToolbarModule,
     MatIconModule,
     MatButtonModule,
@@ -40,8 +44,7 @@ import { MatPaginatorSpanish } from './MatPaginatorSpanish';
     MatExpansionModule,
     MatSelectModule
   ],
-  providers: [{ provide: MatPaginatorIntl, useClass: MatPaginatorSpanish
-}],
+  providers: [{ provide: MatPaginatorIntl, useClass: MatPaginatorSpanish }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

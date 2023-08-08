@@ -1,26 +1,24 @@
-import { Component, Inject, ViewChild } from '@angular/core';
-import { Application } from '../entities/Application';
+import { Component, ViewChild } from '@angular/core';
+import { Application } from '../../entities/Application';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { ApplicationService } from '../services/application.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { MatSort, Sort } from '@angular/material/sort';
+import { MatSort } from '@angular/material/sort';
 import { Router } from '@angular/router';
-import { MAT_DIALOG_DATA, MatDialog, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
-import { MatButtonModule } from '@angular/material/button';
+import { MatDialog } from '@angular/material/dialog';
+import { ConfirmComponent } from '../../utils/confirm/confirm.component';
 
-const ELEMENT_DATA: Application[] = [
-  { id: 1, name: 'Autenticación' },
-  { id: 2, name: 'Otra cosa' }
-];
-
+/**
+ * Listado de aplicaciones
+ */
 @Component({
   selector: 'app-apps',
   templateUrl: './apps.component.html',
   styleUrls: ['./apps.component.scss']
 })
 export class AppsComponent {
-  displayedColumns: string[] = ['id', 'name', 'edit', 'delete'];
+  displayedColumns: string[] = ['id', 'name', 'roles', 'edit', 'delete'];
   loading = false;
   totalRows = 0;
   pageSize = 25;
@@ -32,11 +30,13 @@ export class AppsComponent {
   operatorFilter: string = "";
   valueFilter: string = "";
   filterStr: string = "";
-  option: string = "";
 
   /**
-   * Inicializa el servicio a la api de autenticación
-   * @param userService
+   * Inicializa el paginador, el ordenador y carga los datos
+   * @param appService Servicio para consultar los datos
+   * @param _snackBar Notificador de mensajes
+   * @param router Enrutador
+   * @param dialog Mensaje de confirmación
    */
   constructor(private appService: ApplicationService, private _snackBar: MatSnackBar, private router: Router, public dialog: MatDialog) {
     this.dataSource.paginator = this.paginator;
@@ -44,6 +44,9 @@ export class AppsComponent {
     this.loadData();
   }
 
+  /**
+   * Carga el listado de aplicaciones
+   */
   loadData() {
     this.loading = true;
     let orders: string = "";
@@ -54,41 +57,68 @@ export class AppsComponent {
     }
     this.appService.list(this.filterStr, orders, this.pageSize, this.currentPage * this.pageSize)
       .then(r => { this.totalRows = r.total; this.dataSource.data = r.list; this.loading = false; })
-      .catch(() => { this._snackBar.open("Hubo un error al consultar el listado de aplicaciones", "Cerrar", { duration: 2000 }); this.loading = false; });
+      .catch(r => { if (r.status === 403) { this._snackBar.open("El usuario no tiene permisos para realizar esta acción", "Cerrar", { duration: 2000 }) } else { this._snackBar.open("Hubo un error al consultar el listado de aplicaciones", "Cerrar", { duration: 2000 }); } this.loading = false; });
   }
 
+  /**
+   * Cambio de página en el paginador
+   * @param event Datos del cambio de página
+   */
   pageChanged(event: PageEvent) {
     this.pageSize = event.pageSize;
     this.currentPage = event.pageIndex;
     this.loadData();
   }
 
-  sorted(sortState: Sort) {
+  /**
+   * Consulta el listado nuevamente con el ordenamiento actual
+   */
+  sorted() {
     this.loadData();
   }
 
+  /**
+   * Redirecciona al formulario de adición
+   */
   add() {
     this.router.navigate(["/home/app/0"]);
   }
 
+  /**
+   * Redirecciona al listado de roles asociados y no asociados a la aplicación
+   * @param app Identificador de la aplicación
+   */
+  roles(app: number) {
+    this.router.navigate(["/home/app-role/" + app]);
+  }
+
+  /**
+   * Redirecciona al formulario de edición de aplicación
+   * @param app Identificador de la aplicación
+   */
   edit(app: number) {
     this.router.navigate(["/home/app/" + app]);
   }
 
+  /**
+   * Elimina una aplicación
+   * @param app Identificador de la aplicación
+   */
   delete(app: number) {
-    const dialogRef = this.dialog.open(ConfirmDialog, {
-      data: { option: this.option }
-    });
+    const dialogRef = this.dialog.open(ConfirmComponent);
 
     dialogRef.afterClosed().subscribe(result => {
       if (result === "ok") {
         this.appService.delete(app)
           .then(x => { this._snackBar.open("Aplicación eliminada correctamente", "Cerrar", { duration: 2000 }); this.loadData(); })
-          .catch(() => this._snackBar.open("Hubo un error al insertar la aplicación", "Cerrar", { duration: 2000 }))
+          .catch(r => { if (r.status === 403) { this._snackBar.open("El usuario no tiene permisos para realizar esta acción", "Cerrar", { duration: 2000 }) } else { this._snackBar.open("Hubo un error al eliminar la aplicación", "Cerrar", { duration: 2000 }); } })
       }
     });
   }
 
+  /**
+   * Aplica filtros al listado de aplicaciones
+   */
   filter() {
     if (this.fieldFilter !== "" && this.operatorFilter !== "" && this.valueFilter !== "") {
       this.filterStr = this.fieldFilter;
@@ -103,7 +133,7 @@ export class AppsComponent {
           this.filterStr += " > " + this.valueFilter;
           break;
         case "like":
-          this.filterStr += " like %" + this.valueFilter + "%";
+          this.filterStr += " like '%" + this.valueFilter + "%'";
           break;
       }
       this.loadData();
@@ -113,36 +143,14 @@ export class AppsComponent {
     }
   }
 
+  /**
+   * Reestablece los filtros
+   */
   clearFilter() {
     this.fieldFilter = "";
     this.operatorFilter = "";
     this.valueFilter = "";
     this.filterStr = "";
     this.loadData();
-  }
-}
-
-@Component({
-  selector: 'confirm-dialog',
-  template: `<h1 mat-dialog-title>Confirmación</h1>
-<div mat-dialog-content>
-  ¿Desea eliminar este registro?
-</div>
-<div mat-dialog-actions>
-  <button mat-button mat-dialog-close (click)="cancel()">No</button>
-  <button mat-button mat-dialog-close (click)="ok()" cdkFocusInitial>Si</button>
-</div>`,
-  standalone: true,
-  imports: [MatDialogModule, MatButtonModule],
-})
-export class ConfirmDialog {
-  constructor(public dialogRef: MatDialogRef<ConfirmDialog>) { }
-
-  cancel() {
-    this.dialogRef.close("cancel");
-  }
-
-  ok() {
-    this.dialogRef.close("ok");
   }
 }

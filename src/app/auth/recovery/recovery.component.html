@@ -1,0 +1,19 @@
+<div class="mainLogin">
+  <div class="formRecovery">
+    <div class="logo">
+      <img src="../../../favicon.png" />
+    </div>
+    <p class="description">Ingrese el correo con que accede al sistema, le llegará en dicho correo un enlace para cambiar la contraseña</p>
+    <mat-form-field class="field">
+      <mat-label>Ingrese su usuario</mat-label>
+      <input matInput type="email" [(ngModel)]="login" />
+    </mat-form-field>
+    <br />
+    <div class="btnLoginContainer">
+      <button mat-flat-button color="accent" (click)="send()" [disabled]="loading">
+        <span *ngIf="!loading">Recuperar</span>
+        <mat-spinner *ngIf="loading" color="accent" diameter="20"></mat-spinner>
+      </button>
+    </div>
+  </div>
+</div>

@@ -3,16 +3,16 @@ import { UserService } from '../services/user.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import jwt_decode from 'jwt-decode';
-import { JwtToken } from '../entities/JwtToken';
+import { JwtToken } from '../../entities/JwtToken';
 
+/**
+ * Componente de inicio de sesión
+ */
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss']
 })
-/**
- * Componente de inicio de sesión
- */
 export class LoginComponent {
   /**
    * Login de acceso a la aplicación
@@ -65,9 +65,8 @@ export class LoginComponent {
         .then(x => {
           if (x.valid) {
             let objToken = jwt_decode<JwtToken>(x.token);
-            this._snackBar.open("Bienvenido " + objToken.name, "Cerrar", { duration: 2000 });
-            sessionStorage.setItem("golden-token", x.token);
-            this.router.navigate(["/home"]);
+            this._snackBar.open("Bienvenido " + objToken.name, "Cerrar", { duration: 2000 }).afterDismissed().toPromise().then(x => this.router.navigate(["/home"]));
+            sessionStorage.setItem("golden-token", x.token);            
           } else {
             this._snackBar.open("Datos inválidos", "Cerrar", { duration: 2000 });
           }
