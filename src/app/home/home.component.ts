@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import jwt_decode from 'jwt-decode';
-import { JwtToken } from '../auth/entities/JwtToken';
+import { JwtToken } from '../entities/JwtToken';
 
 @Component({
   selector: 'app-home',

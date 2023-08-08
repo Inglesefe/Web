@@ -20,13 +20,38 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { EditAppComponent } from './edit-app/edit-app.component';
 import { MatDialogModule } from '@angular/material/dialog';
+import { UtilsModule } from '../utils/utils.module';
+import { DragDropModule } from '@angular/cdk/drag-drop';
+import { AppRoutingModule } from '../app-routing.module';
+
+import { AppRoleComponent } from './app-role/app-role.component';
+import { RolesComponent } from './roles/roles.component';
+import { EditRoleComponent } from './edit-role/edit-role.component';
+import { RoleAppComponent } from './role-app/role-app.component';
+import { RoleUserComponent } from './role-user/role-user.component';
+import { UsersComponent } from './users/users.component';
+import { EditUserComponent } from './edit-user/edit-user.component';
+import { UserRoleComponent } from './user-role/user-role.component';
+import { RecoveryComponent } from './recovery/recovery.component';
+import { ChangePasswordComponent } from './change-password/change-password.component';
+
 
 @NgModule({
   declarations: [
     LoginComponent,
     LogoutComponent,
     AppsComponent,
-    EditAppComponent
+    EditAppComponent,
+    AppRoleComponent,
+    RolesComponent,
+    EditRoleComponent,
+    RoleAppComponent,
+    RoleUserComponent,
+    UsersComponent,
+    EditUserComponent,
+    UserRoleComponent,
+    RecoveryComponent,
+    ChangePasswordComponent
   ],
   imports: [
     CommonModule,
@@ -45,7 +70,10 @@ import { MatDialogModule } from '@angular/material/dialog';
     MatProgressBarModule,
     MatSelectModule,
     MatTooltipModule,
-    MatDialogModule
+    MatDialogModule,
+    UtilsModule,
+    DragDropModule,
+    AppRoutingModule
   ],
   exports: []
 })

@@ -15,7 +15,7 @@ export class ListResult<T extends EntityBase>  {
   public total: number;
 
   /**
-   * Total de registro que se pueden llegar a traer sin aplicar límites
+   * Inicializa con valores por defecto
    */
   public constructor() {
     this.list = [];

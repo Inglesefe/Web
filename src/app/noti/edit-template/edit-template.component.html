@@ -1,0 +1,31 @@
+<div class="formContainer">
+  <h1>{{title}}</h1>
+  <div>
+    <mat-form-field class="field">
+      <mat-label>ID</mat-label>
+      <input matInput type="number" [(ngModel)]="template.id" readonly />
+    </mat-form-field>
+    <br />
+    <mat-form-field class="field">
+      <mat-label>Nombre</mat-label>
+      <input matInput type="text" [(ngModel)]="template.name" [readonly]="loading" />
+    </mat-form-field>
+    <br />
+    <editor [init]="{
+            plugins: 'lists link image table code help wordcount',
+            toolbar: 'undo redo | blocks | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | help'
+            }"
+            [(ngModel)]="template.content"
+            apiKey="juyhd7j8dn8a2xl096y274tjoekaoipbuk9m3256synwzr7e">
+    </editor>
+    <div class="field buttons">
+      <button mat-flat-button color="accent" (click)="back()" [disabled]="loading">
+        <span>Volver</span>
+      </button>
+      &nbsp;
+      <button mat-flat-button color="primary" (click)="save()" [disabled]="loading">
+        <span>Guardar</span>
+      </button>
+    </div>
+  </div>
+</div>

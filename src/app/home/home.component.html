@@ -11,12 +11,17 @@
 </mat-toolbar>
 <mat-menu #menu="matMenu">
   <button mat-menu-item [matMenuTriggerFor]="auth">Autenticación</button>
+  <button mat-menu-item [matMenuTriggerFor]="noti">Notificación</button>
   <button mat-menu-item [matMenuTriggerFor]="config">Configuración</button>
 </mat-menu>
 <mat-menu #auth="matMenu">
   <a mat-menu-item [routerLink]="['/home/apps']">Aplicaciones</a>
-  <a mat-menu-item [routerLink]="['/home/roles']">Grupos</a>
+  <a mat-menu-item [routerLink]="['/home/roles']">Roles</a>
   <a mat-menu-item [routerLink]="['/home/users']">Usuarios</a>
+</mat-menu>
+<mat-menu #noti="matMenu">
+  <a mat-menu-item [routerLink]="['/home/templates']">Plantillas</a>
+  <a mat-menu-item [routerLink]="['/home/notifications']">Notificaciones</a>
 </mat-menu>
 <mat-menu #config="matMenu">
   <a mat-menu-item [routerLink]="['/home/countries']">Paises</a>
