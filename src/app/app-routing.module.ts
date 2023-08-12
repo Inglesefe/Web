@@ -21,6 +21,7 @@ import { EditNotificationComponent } from './noti/edit-notification/edit-notific
 import { RecoveryComponent } from './auth/recovery/recovery.component';
 import { ChangePasswordComponent } from './auth/change-password/change-password.component';
 import { CountriesComponent } from './conf/countries/countries.component';
+import { EditCountryComponent } from './conf/edit-country/edit-country.component';
 
 const routes: Routes = [
   { path: "login", component: LoginComponent },
@@ -44,6 +45,7 @@ const routes: Routes = [
       { path: "notifications", component: NotificationsComponent },
       { path: "notification/:id", component: EditNotificationComponent },
       { path: "countries", component: CountriesComponent },
+      { path: "country/:id", component: EditCountryComponent },
       { path: "", component: DashboardComponent },
       { path: "**", component: DashboardComponent }
     ]

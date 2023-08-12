@@ -20,10 +20,12 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { UtilsModule } from '../utils/utils.module';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { AppRoutingModule } from '../app-routing.module';
+import { EditCountryComponent } from './edit-country/edit-country.component';
 
 @NgModule({
   declarations: [
-    CountriesComponent
+    CountriesComponent,
+    EditCountryComponent
   ],
   imports: [
     CommonModule,
