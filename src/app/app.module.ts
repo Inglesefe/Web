@@ -15,6 +15,7 @@ import { MatSelectModule } from '@angular/material/select';
 
 import { AuthModule } from './auth/auth.module';
 import { NotiModule } from './noti/noti.module';
+import { ConfModule } from './conf/conf.module';
 
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
@@ -34,6 +35,7 @@ import { MatPaginatorSpanish } from './MatPaginatorSpanish';
     BrowserAnimationsModule,
     AuthModule,
     NotiModule,
+    ConfModule,
     MatToolbarModule,
     MatIconModule,
     MatButtonModule,
