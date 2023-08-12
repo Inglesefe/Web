@@ -21,11 +21,35 @@ import { UtilsModule } from '../utils/utils.module';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { AppRoutingModule } from '../app-routing.module';
 import { EditCountryComponent } from './edit-country/edit-country.component';
+import { IdentificationTypesComponent } from './identification-types/identification-types.component';
+import { IncomeTypesComponent } from './income-types/income-types.component';
+import { ParametersComponent } from './parameters/parameters.component';
+import { PlansComponent } from './plans/plans.component';
+import { EditIdentificationTypeComponent } from './edit-identification-type/edit-identification-type.component';
+import { EditIncomeTypeComponent } from './edit-income-type/edit-income-type.component';
+import { EditParameterComponent } from './edit-parameter/edit-parameter.component';
+import { EditPlanComponent } from './edit-plan/edit-plan.component';
+import { CitiesComponent } from './cities/cities.component';
+import { EditCityComponent } from './edit-city/edit-city.component';
+import { OfficesComponent } from './offices/offices.component';
+import { EditOfficeComponent } from './edit-office/edit-office.component';
 
 @NgModule({
   declarations: [
     CountriesComponent,
-    EditCountryComponent
+    EditCountryComponent,
+    IdentificationTypesComponent,
+    IncomeTypesComponent,
+    ParametersComponent,
+    PlansComponent,
+    EditIdentificationTypeComponent,
+    EditIncomeTypeComponent,
+    EditParameterComponent,
+    EditPlanComponent,
+    CitiesComponent,
+    EditCityComponent,
+    OfficesComponent,
+    EditOfficeComponent
   ],
   imports: [
     CommonModule,
