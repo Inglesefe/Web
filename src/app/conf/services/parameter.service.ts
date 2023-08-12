@@ -3,7 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { lastValueFrom } from 'rxjs';
 import { environment } from '../../../environment/environment';
 import { ListResult } from '../../entities/ListResult';
-import { Country } from '../../entities/Country';
+import { Parameter } from '../../entities/Parameter';
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +11,7 @@ import { Country } from '../../entities/Country';
 /**
  * Servicio para comunicarse con la api de configuración general
  */
-export class CountryService {
+export class ParameterService {
 
   /**
    * Configura la conexión http
@@ -21,55 +21,55 @@ export class CountryService {
   }
 
   /**
-   * Realiza la consulta del listado de paises
+   * Realiza la consulta del listado de parámetros
    * @param filters Filtros aplicados a la consulta
    * @param orders Ordenamientos aplicados a la consulta
    * @param limit Límite de registros a traer
    * @param offset Registro incial dese el que se cuenta el número de registros a traer
    * @returns Promesa con el resultado
    */
-  public list(filters: string, orders: string, limit: number, offset: number): Promise<ListResult<Country>> {
+  public list(filters: string, orders: string, limit: number, offset: number): Promise<ListResult<Parameter>> {
     let headers: HttpHeaders = new HttpHeaders({ "Authorization": "Bearer " + sessionStorage.getItem("golden-token") });
-    return lastValueFrom(this.http.get<ListResult<Country>>(environment.API_CONF_URL + "Country?filters=" + encodeURI(filters) + "&orders=" + encodeURI(orders) + "&limit=" + limit + "&offset=" + offset, { headers }));
+    return lastValueFrom(this.http.get<ListResult<Parameter>>(environment.API_CONF_URL + "Parameter?filters=" + encodeURI(filters) + "&orders=" + encodeURI(orders) + "&limit=" + limit + "&offset=" + offset, { headers }));
   }
 
   /**
-   * Realiza la consulta de un país
-   * @param id Identificador del país
+   * Realiza la consulta de un parámetro
+   * @param id Identificador del parámetro
    * @returns Promesa con el resultado
    */
-  public read(id: number): Promise<Country> {
+  public read(id: number): Promise<Parameter> {
     let headers: HttpHeaders = new HttpHeaders({ "Authorization": "Bearer " + sessionStorage.getItem("golden-token") });
-    return lastValueFrom(this.http.get<Country>(environment.API_CONF_URL + "Country/" + id, { headers }));
+    return lastValueFrom(this.http.get<Parameter>(environment.API_CONF_URL + "Parameter/" + id, { headers }));
   }
 
   /**
-   * Inserta un país
-   * @param country País a insertar
+   * Inserta un parámetro
+   * @param parameter Parámetro a insertar
    * @returns Promesa con el resultado
    */
-  public insert(country: Country): Promise<Country> {
+  public insert(parameter: Parameter): Promise<Parameter> {
     let headers: HttpHeaders = new HttpHeaders({ "Authorization": "Bearer " + sessionStorage.getItem("golden-token"), "Content-Type": "application/json" });
-    return lastValueFrom(this.http.post<Country>(environment.API_CONF_URL + "Country", country, { headers }));
+    return lastValueFrom(this.http.post<Parameter>(environment.API_CONF_URL + "Parameter", parameter, { headers }));
   }
 
   /**
-   * Actualiza un país
-   * @param country País a actualizar
+   * Actualiza un parámetro
+   * @param parameter Parámetro a actualizar
    * @returns Promesa con el resultado
    */
-  public update(country: Country): Promise<Country> {
+  public update(parameter: Parameter): Promise<Parameter> {
     let headers: HttpHeaders = new HttpHeaders({ "Authorization": "Bearer " + sessionStorage.getItem("golden-token"), "Content-Type": "application/json" });
-    return lastValueFrom(this.http.put<Country>(environment.API_CONF_URL + "Country", country, { headers }));
+    return lastValueFrom(this.http.put<Parameter>(environment.API_CONF_URL + "Parameter", parameter, { headers }));
   }
 
   /**
-   * Elimina un país
-   * @param id Identificación del país a eliminar
+   * Elimina un parámetro
+   * @param id Identificación del parámetro a eliminar
    * @returns Promesa con el resultado
    */
-  public delete(id: number): Promise<Country> {
+  public delete(id: number): Promise<Parameter> {
     let headers: HttpHeaders = new HttpHeaders({ "Authorization": "Bearer " + sessionStorage.getItem("golden-token") });
-    return lastValueFrom(this.http.delete<Country>(environment.API_CONF_URL + "Country/" + id, { headers }));
+    return lastValueFrom(this.http.delete<Parameter>(environment.API_CONF_URL + "Parameter/" + id, { headers }));
   }
 }

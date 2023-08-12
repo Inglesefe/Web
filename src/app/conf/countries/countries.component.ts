@@ -86,7 +86,7 @@ export class CountriesComponent {
    * @param country Identificador del país
    */
   cities(country: number) {
-    this.router.navigate(["/home/cities/" + country]);
+    this.router.navigate(["/home/countries/" + country + "/cities"]);
   }
 
   /**
