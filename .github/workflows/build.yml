@@ -24,7 +24,7 @@ jobs:
     - name: Instalar paquetes
       run: pushd ${{ github.workspace }}; npm install;
 
-    - name: Reemplazar variables
+    - name: Reemplazar direcciones
       if: ${{ github.ref_name == 'test' }}
       uses: prabhakarareddygaddam-mcd/replace-action@1.0.0
       with:
