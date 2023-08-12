@@ -22,6 +22,18 @@ import { RecoveryComponent } from './auth/recovery/recovery.component';
 import { ChangePasswordComponent } from './auth/change-password/change-password.component';
 import { CountriesComponent } from './conf/countries/countries.component';
 import { EditCountryComponent } from './conf/edit-country/edit-country.component';
+import { CitiesComponent } from './conf/cities/cities.component';
+import { EditCityComponent } from './conf/edit-city/edit-city.component';
+import { OfficesComponent } from './conf/offices/offices.component';
+import { EditOfficeComponent } from './conf/edit-office/edit-office.component';
+import { IdentificationTypesComponent } from './conf/identification-types/identification-types.component';
+import { EditIdentificationTypeComponent } from './conf/edit-identification-type/edit-identification-type.component';
+import { IncomeTypesComponent } from './conf/income-types/income-types.component';
+import { EditIncomeTypeComponent } from './conf/edit-income-type/edit-income-type.component';
+import { ParametersComponent } from './conf/parameters/parameters.component';
+import { EditParameterComponent } from './conf/edit-parameter/edit-parameter.component';
+import { PlansComponent } from './conf/plans/plans.component';
+import { EditPlanComponent } from './conf/edit-plan/edit-plan.component';
 
 const routes: Routes = [
   { path: "login", component: LoginComponent },
@@ -46,6 +58,18 @@ const routes: Routes = [
       { path: "notification/:id", component: EditNotificationComponent },
       { path: "countries", component: CountriesComponent },
       { path: "country/:id", component: EditCountryComponent },
+      { path: "cities", component: CitiesComponent },
+      { path: "city/:id", component: EditCityComponent },
+      { path: "offices", component: OfficesComponent },
+      { path: "office/:id", component: EditOfficeComponent },
+      { path: "identification-types", component: IdentificationTypesComponent },
+      { path: "identification-type/:id", component: EditIdentificationTypeComponent },
+      { path: "income-types", component: IncomeTypesComponent },
+      { path: "income-type/:id", component: EditIncomeTypeComponent },
+      { path: "parameters", component: ParametersComponent },
+      { path: "parameter/:id", component: EditParameterComponent },
+      { path: "plans", component: PlansComponent },
+      { path: "plan/:id", component: EditPlanComponent },
       { path: "", component: DashboardComponent },
       { path: "**", component: DashboardComponent }
     ]
