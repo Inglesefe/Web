@@ -9,6 +9,9 @@ import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmComponent } from '../../utils/confirm/confirm.component';
 
+/**
+ * Listado de paises
+ */
 @Component({
   selector: 'app-countries',
   templateUrl: './countries.component.html',

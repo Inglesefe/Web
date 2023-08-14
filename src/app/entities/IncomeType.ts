@@ -5,6 +5,11 @@ import { EntityBase } from "./EntityBase";
  */
 export class IncomeType extends EntityBase {
   /**
+   * Código del tipo de ingreso
+   */
+  public code: string;
+
+  /**
    * Nombre del tipo de ingreso
    */
   public name: string;
@@ -14,6 +19,7 @@ export class IncomeType extends EntityBase {
    */
   public constructor() {
     super();
+    this.code = "";
     this.name = "";
   }
 }
