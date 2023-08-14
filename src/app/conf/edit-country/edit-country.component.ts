@@ -4,6 +4,9 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { CountryService } from '../services/country.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
+/**
+ * Formulario de edición o inserción de un país
+ */
 @Component({
   selector: 'app-edit-country',
   templateUrl: './edit-country.component.html',

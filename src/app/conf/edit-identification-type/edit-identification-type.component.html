@@ -1,1 +1,23 @@
-<p>edit-identification-type works!</p>
+<div class="formContainer">
+  <h1>{{title}}</h1>
+  <div>
+    <mat-form-field class="field">
+      <mat-label>ID</mat-label>
+      <input matInput type="number" [(ngModel)]="identificationType.id" readonly />
+    </mat-form-field>
+    <br />
+    <mat-form-field class="field">
+      <mat-label>Nombre</mat-label>
+      <input matInput type="text" [(ngModel)]="identificationType.name" [readonly]="loading" />
+    </mat-form-field>
+    <div class="field buttons">
+      <button mat-flat-button color="accent" (click)="back()" [disabled]="loading">
+        <span>Volver</span>
+      </button>
+      &nbsp;
+      <button mat-flat-button color="primary" (click)="save()" [disabled]="loading">
+        <span>Guardar</span>
+      </button>
+    </div>
+  </div>
+</div>
