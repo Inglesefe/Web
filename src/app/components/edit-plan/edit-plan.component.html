@@ -1,0 +1,59 @@
+<mat-progress-bar *ngIf="loading" color="primary" mode="indeterminate"></mat-progress-bar>
+<form class="formContainer" [formGroup]="_form" (ngSubmit)="submit()">
+  <h2>{{title}}</h2>
+  <div>
+    <mat-form-field class="field">
+      <mat-label>ID</mat-label>
+      <input matInput type="number" formControlName="id" readonly />
+      <mat-error *ngIf="_form.controls['id'].invalid && (_form.controls['id'].dirty || _form.controls['id'].touched)">{{ getError('id') }}</mat-error>
+    </mat-form-field>
+    <br />
+    <mat-form-field class="field">
+      <mat-label>Valor</mat-label>
+      <input matInput type="number" formControlName="value" [readonly]="loading" />
+      <mat-error *ngIf="_form.controls['value'].invalid && (_form.controls['value'].dirty || _form.controls['value'].touched)">{{ getError('value') }}</mat-error>
+    </mat-form-field>
+    <br />
+    <mat-form-field class="field">
+      <mat-label>Cuota inicial</mat-label>
+      <input matInput type="number" formControlName="initialFee" [readonly]="loading" />
+      <mat-error *ngIf="_form.controls['initialFee'].invalid && (_form.controls['initialFee'].dirty || _form.controls['initialFee'].touched)">{{ getError('initialFee') }}</mat-error>
+    </mat-form-field>
+    <br />
+    <mat-form-field class="field">
+      <mat-label>Número de cuotas</mat-label>
+      <input matInput type="number" formControlName="installmentsNumber" [readonly]="loading" />
+      <mat-error *ngIf="_form.controls['installmentsNumber'].invalid && (_form.controls['installmentsNumber'].dirty || _form.controls['installmentsNumber'].touched)">{{ getError('installmentsNumber') }}</mat-error>
+    </mat-form-field>
+    <br />
+    <mat-form-field class="field">
+      <mat-label>Valor de la cuota</mat-label>
+      <input matInput type="number" formControlName="installmentValue" [readonly]="loading" />
+      <mat-error *ngIf="_form.controls['installmentValue'].invalid && (_form.controls['installmentValue'].dirty || _form.controls['installmentValue'].touched)">{{ getError('installmentValue') }}</mat-error>
+    </mat-form-field>
+    <br />
+    <mat-form-field class="field">
+      <mat-label>Activo</mat-label>
+      <mat-select formControlName="active">
+        <mat-option value=false>No</mat-option>
+        <mat-option value=true>Si</mat-option>
+      </mat-select>
+      <mat-error *ngIf="_form.controls['active'].invalid && (_form.controls['active'].dirty || _form.controls['active'].touched)">{{ getError('active') }}</mat-error>
+    </mat-form-field>
+    <br />
+    <mat-form-field class="field">
+      <mat-label>Descripción</mat-label>
+      <input matInput type="text" formControlName="description" [readonly]="loading" />
+      <mat-error *ngIf="_form.controls['description'].invalid && (_form.controls['description'].dirty || _form.controls['description'].touched)">{{ getError('description') }}</mat-error>
+    </mat-form-field>
+    <div class="field buttons">
+      <button mat-flat-button color="accent" (click)="back()" [disabled]="loading">
+        <span>Volver</span>
+      </button>
+      &nbsp;
+      <button mat-flat-button color="primary" type="submit" [disabled]="loading || _form.status === 'INVALID'">
+        <span>Guardar</span>
+      </button>
+    </div>
+  </div>
+</form>

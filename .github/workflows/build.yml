@@ -24,19 +24,25 @@ jobs:
     - name: Instalar paquetes
       run: pushd ${{ github.workspace }}; npm install;
 
-    - name: Reemplazar direcciones
-      if: ${{ github.ref_name == 'test' }}
+    - name: Reemplazar version
       uses: prabhakarareddygaddam-mcd/replace-action@1.0.0
       with:
         files: src/environment/environment.ts
-        replacements: https://localhost:30001/=https://192.168.1.7:31001/,https://localhost:30003/=https://192.168.1.7:31003/,https://localhost:30005/=https://192.168.1.7:31005/
+        replacements: 1.0.0=${{ env.version }}
+
+    - name: Reemplazar direcciones
+      if: ${{ github.ref_name == 'dev' || github.ref_name == 'test' }}
+      uses: prabhakarareddygaddam-mcd/replace-action@1.0.0
+      with:
+        files: src/environment/environment.ts
+        replacements: https://localhost:30001/=https://192.168.1.4:31001/
 
     - name: Reemplazar variables
       if: ${{ github.ref_name == 'main' }}
       uses: prabhakarareddygaddam-mcd/replace-action@1.0.0
       with:
         files: src/environment/environment.ts
-        replacements: https://localhost:30001/=https://192.168.1.7:30001/,https://localhost:30003/=https://192.168.1.7:30003/,https://localhost:30005/=https://192.168.1.7:30005/
+        replacements: https://localhost:30001/=https://192.168.1.7:30001/
 
     - name: Compilar la solución
       run: ng build;
