@@ -50,7 +50,7 @@ jobs:
       uses: prabhakarareddygaddam-mcd/replace-action@1.0.0
       with:
         files: sonar-project.properties
-        replacements: ${{ sonarQubeKey }}=${{ sonarQubeKeyTest }}
+        replacements: ${{ env.sonarQubeKey }}=${{ env.sonarQubeKeyTest }}
 
     - name: Compilar la solución
       run: ng build;
