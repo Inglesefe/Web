@@ -14,6 +14,7 @@ jobs:
       image_name: ${{ github.repository }}
       username: leandrobaena@gmail.com
       sonarQubeKey: sqa_c24b73b519e482496ce1070a56f68c87a1c384c5
+      sonarQubeKeyTest: sqa_5db36155535cbfd1204205496d04da486b602639
 
     steps:
     - name: Descarga del código
@@ -31,7 +32,7 @@ jobs:
         replacements: 1.0.0=${{ env.version }}
 
     - name: Reemplazar direcciones
-      if: ${{ github.ref_name == 'dev' || github.ref_name == 'test' }}
+      if: ${{ github.ref_name == 'test' }}
       uses: prabhakarareddygaddam-mcd/replace-action@1.0.0
       with:
         files: src/environment/environment.ts
@@ -44,11 +45,18 @@ jobs:
         files: src/environment/environment.ts
         replacements: https://localhost:30001/=https://192.168.1.7:30001/
 
+    - name: Reemplazar variables
+      if: ${{ github.ref_name == 'main' }}
+      uses: prabhakarareddygaddam-mcd/replace-action@1.0.0
+      with:
+        files: sonar-project.properties
+        replacements: ${{ sonarQubeKey }}=${{ sonarQubeKeyTest }}
+
     - name: Compilar la solución
       run: ng build;
 
     - name: Ejecutar SonarQube
-      if: ${{ github.ref_name == 'dev' }}
+      if: ${{ github.ref_name == 'dev' || github.ref_name == 'test' }}
       run: sonar-scanner
 
     - name: Conectar al repositorio de imágenes
@@ -59,6 +67,20 @@ jobs:
 
     - name: Publicar imagen Docker
       run: docker push -a ghcr.io/inglesefe/web
+
+  deploy:
+    needs: build
+    runs-on: [self-hosted, 'deploy-${{ github.ref_name }}']
+    env:
+      solution: Web
+      version: 1.0.${{ github.run_number }}
+      username: leandrobaena@gmail.com
+
+    steps:
+    - name: Descarga del código
+      uses: actions/checkout@v3
+      with:
+        fetch-depth: 0
 
     - name: Reemplazar variables
       if: ${{ github.ref_name == 'dev' || github.ref_name == 'main' }}
