@@ -1,0 +1,39 @@
+.mainLogin {
+  height: 100vh;
+  width: 100vw;
+  background: rgba(232,229,232,1);
+  background: -moz-linear-gradient(top, rgba(232,229,232,1) 0%, rgba(78,78,78,1) 100%);
+  background: -webkit-gradient(left top, left bottom, color-stop(0%, rgba(232,229,232,1)), color-stop(100%, rgba(78,78,78,1)));
+  background: -webkit-linear-gradient(top, rgba(232,229,232,1) 0%, rgba(78,78,78,1) 100%);
+  background: -o-linear-gradient(top, rgba(232,229,232,1) 0%, rgba(78,78,78,1) 100%);
+  background: -ms-linear-gradient(top, rgba(232,229,232,1) 0%, rgba(78,78,78,1) 100%);
+  background: linear-gradient(to bottom, rgba(232,229,232,1) 0%, rgba(78,78,78,1) 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e8e5e8', endColorstr='#4e4e4e', GradientType=0 );
+}
+
+.formRecovery {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 10px;
+}
+
+.btnLoginContainer {
+  width: 100%;
+  text-align: right;
+}
+
+.field {
+  min-width: 250px;
+  width: 400px;
+}
+
+.logo {
+  text-align: center;
+}
+
+.description {
+  color: #FAFAFA;
+  width: 400px;
+}
