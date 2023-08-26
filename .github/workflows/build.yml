@@ -45,7 +45,7 @@ jobs:
         files: src/environment/environment.ts
         replacements: https://localhost:30001/=https://192.168.1.7:30001/
 
-    - name: Reemplazar variables
+    - name: Reemplazar key SonarQube
       if: ${{ github.ref_name == 'main' }}
       uses: prabhakarareddygaddam-mcd/replace-action@1.0.0
       with:
