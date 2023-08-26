@@ -1,0 +1,41 @@
+<mat-progress-bar *ngIf="loading" color="primary" mode="indeterminate"></mat-progress-bar>
+<form class="formContainer" [formGroup]="_form" (ngSubmit)="submit()">
+  <h2>{{title}}</h2>
+  <div>
+    <mat-form-field class="field">
+      <mat-label>ID</mat-label>
+      <input matInput type="number" formControlName="id" readonly />
+      <mat-error *ngIf="_form.controls['id'].invalid && (_form.controls['id'].dirty || _form.controls['id'].touched)">{{ getError('id') }}</mat-error>
+    </mat-form-field>
+    <br />
+    <mat-form-field class="field">
+      <mat-label>Login</mat-label>
+      <input matInput type="text" formControlName="login" [readonly]="loading" />
+      <mat-error *ngIf="_form.controls['login'].invalid && (_form.controls['login'].dirty || _form.controls['login'].touched)">{{ getError('login') }}</mat-error>
+    </mat-form-field>
+    <br />
+    <mat-form-field class="field">
+      <mat-label>Nombre</mat-label>
+      <input matInput type="text" formControlName="name" [readonly]="loading" />
+      <mat-error *ngIf="_form.controls['name'].invalid && (_form.controls['name'].dirty || _form.controls['name'].touched)">{{ getError('name') }}</mat-error>
+    </mat-form-field>
+    <br />
+    <mat-form-field class="field">
+      <mat-label>Activo</mat-label>
+      <mat-select formControlName="active">
+        <mat-option value=false>No</mat-option>
+        <mat-option value=true>Si</mat-option>
+      </mat-select>
+      <mat-error *ngIf="_form.controls['active'].invalid && (_form.controls['active'].dirty || _form.controls['active'].touched)">{{ getError('active') }}</mat-error>
+    </mat-form-field>
+    <div class="field buttons">
+      <button mat-flat-button color="accent" (click)="back()" [disabled]="loading">
+        <span>Volver</span>
+      </button>
+      &nbsp;
+      <button mat-flat-button color="primary" type="submit" [disabled]="loading || _form.status === 'INVALID'">
+        <span>Guardar</span>
+      </button>
+    </div>
+  </div>
+</form>

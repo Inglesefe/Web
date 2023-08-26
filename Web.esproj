@@ -13,4 +13,7 @@
   <ItemGroup>
     <Folder Include="src\environment\" />
   </ItemGroup>
+  <ItemGroup>
+    <None Remove="src\app\components\edit-app\edit-app.component.html~RF2174721b.TMP" />
+  </ItemGroup>
 </Project>

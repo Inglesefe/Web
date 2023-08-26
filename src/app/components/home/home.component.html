@@ -1,0 +1,35 @@
+<mat-toolbar color="primary">
+  <span><img src="../../../favicon.png" width="30" height="45" /></span>
+  <span>&nbsp;</span>
+  <button mat-icon-button [matMenuTriggerFor]="menu">
+    <mat-icon>menu</mat-icon>
+  </button>
+  <span>Golden Web</span>
+  <span class="spacer"></span>
+  <span>{{ user }}</span>
+  <button mat-icon-button (click)="logout()">
+    <mat-icon>logout</mat-icon>
+  </button>
+</mat-toolbar>
+<mat-menu #menu="matMenu">
+  <button mat-menu-item [matMenuTriggerFor]="auth">Autenticación</button>
+  <button mat-menu-item [matMenuTriggerFor]="noti">Notificación</button>
+  <button mat-menu-item [matMenuTriggerFor]="config">Configuración</button>
+</mat-menu>
+<mat-menu #auth="matMenu">
+  <a mat-menu-item [routerLink]="['/home/apps']">Aplicaciones</a>
+  <a mat-menu-item [routerLink]="['/home/roles']">Roles</a>
+  <a mat-menu-item [routerLink]="['/home/users']">Usuarios</a>
+</mat-menu>
+<mat-menu #noti="matMenu">
+  <a mat-menu-item [routerLink]="['/home/templates']">Plantillas</a>
+  <a mat-menu-item [routerLink]="['/home/notifications']">Notificaciones</a>
+</mat-menu>
+<mat-menu #config="matMenu">
+  <a mat-menu-item [routerLink]="['/home/countries']">Paises</a>
+  <a mat-menu-item [routerLink]="['/home/identification-types']">Tipos de identificación</a>
+  <a mat-menu-item [routerLink]="['/home/income-types']">Tipos de ingreso</a>
+  <a mat-menu-item [routerLink]="['/home/parameters']">Parámetros</a>
+  <a mat-menu-item [routerLink]="['/home/plans']">Planes</a>
+</mat-menu>
+<router-outlet></router-outlet>

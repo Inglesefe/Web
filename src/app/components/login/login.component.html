@@ -1,0 +1,27 @@
+<div class="mainLogin">
+  <form class="formLogin" [formGroup]="_form" (ngSubmit)="submit()">
+    <div class="logo">
+      <img src="../../../favicon.png" width="200" height="200" />
+    </div>
+    <mat-form-field class="field">
+      <mat-label>Usuario</mat-label>
+      <input matInput type="email" formControlName="login" />
+      <mat-error *ngIf="_form.controls['login'].invalid && (_form.controls['login'].dirty || _form.controls['login'].touched)">{{ getError('login') }}</mat-error>
+    </mat-form-field>
+    <br />
+    <mat-form-field class="field">
+      <mat-label>Contraseña</mat-label>
+      <input matInput type="password" formControlName="password" />
+      <mat-error *ngIf="_form.controls['password'].invalid && (_form.controls['password'].dirty || _form.controls['password'].touched)">{{ getError('password') }}</mat-error>
+    </mat-form-field>
+    <br />
+    <a class="recovery" [routerLink]="['/recovery']">¿Olvidó su contraseña?</a>
+    <div class="btnLoginContainer">
+      <button mat-flat-button color="accent" type="submit" [disabled]="loading || _form.status === 'INVALID'">
+        <span *ngIf="!loading">Ingresar</span>
+        <mat-spinner *ngIf="loading" color="accent" diameter="20"></mat-spinner>
+      </button>
+    </div>
+  </form>
+  <div class="version">Versión: {{version}}</div>
+</div>

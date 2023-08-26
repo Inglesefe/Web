@@ -1,0 +1,20 @@
+<div class="mainLogin">
+  <form class="formRecovery" [formGroup]="_form" (ngSubmit)="submit()">
+    <div class="logo">
+      <img src="../../../favicon.png"  width="200" height="200"/>
+    </div>
+    <p class="description">Ingrese el correo con que accede al sistema, le llegará en dicho correo un enlace para cambiar la contraseña</p>
+    <mat-form-field class="field">
+      <mat-label>Ingrese su usuario</mat-label>
+      <input matInput type="email" formControlName="login" />
+      <mat-error *ngIf="_form.controls['login'].invalid && (_form.controls['login'].dirty || _form.controls['login'].touched)">{{ getError('login') }}</mat-error>
+    </mat-form-field>
+    <br />
+    <div class="btnLoginContainer">
+      <button mat-flat-button color="accent" type="submit" [disabled]="loading || _form.status === 'INVALID'">
+        <span *ngIf="!loading">Recuperar</span>
+        <mat-spinner *ngIf="loading" color="accent" diameter="20"></mat-spinner>
+      </button>
+    </div>
+  </form>
+</div>

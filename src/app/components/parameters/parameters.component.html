@@ -1,0 +1,74 @@
+<mat-progress-bar *ngIf="loading" color="primary" mode="indeterminate"></mat-progress-bar>
+<table>
+  <tr>
+    <td>
+      <button [matTooltip]="_tooltipNewEntity" mat-icon-button (click)="add()">
+        <mat-icon color="primary">add</mat-icon>
+      </button>
+    </td>
+    <td><h2>{{ _title }}</h2></td>
+    <td>
+      Filtros:
+      &nbsp;
+      <mat-form-field>
+        <mat-label>Campo</mat-label>
+        <mat-select [(value)]="fieldFilter">
+          <mat-option *ngFor="let field of _fields" [value]="field.field">{{field.name}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+      &nbsp;
+      <mat-form-field>
+        <mat-label>Operador</mat-label>
+        <mat-select [(value)]="operatorFilter">
+          <mat-option *ngFor="let field of operators" [value]="field.field">{{field.name}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+      &nbsp;
+      <mat-form-field>
+        <mat-label>Valor</mat-label>
+        <input matInput type="text" [(ngModel)]="valueFilter" />
+      </mat-form-field>
+      &nbsp;
+      <button mat-icon-button matTooltip="Buscar" (click)="filter()">
+        <mat-icon color="primary">search</mat-icon>
+      </button>
+      &nbsp;
+      <button mat-icon-button matTooltip="Limpiar filtros" (click)="clearFilter()">
+        <mat-icon color="primary">search_off</mat-icon>
+      </button>
+    </td>
+  </tr>
+</table>
+<table mat-table [dataSource]="dataSource" class="mat-elevation-z8" matSort (matSortChange)="sorted()" matSortActive="id" matSortDirection="asc">
+  <ng-container matColumnDef="id">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header>ID</th>
+    <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+  </ng-container>
+  <ng-container matColumnDef="name">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header>Nombre</th>
+    <td mat-cell *matCellDef="let element">{{element.name}}</td>
+  </ng-container>
+  <ng-container matColumnDef="value">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header>Valor</th>
+    <td mat-cell *matCellDef="let element">{{element.value}}</td>
+  </ng-container>
+  <ng-container matColumnDef="edit">
+    <th mat-header-cell *matHeaderCellDef>Editar</th>
+    <td mat-cell *matCellDef="let element">
+      <button mat-icon-button matTooltip="Editar país" (click)="edit(element.id)">
+        <mat-icon color="accent">edit</mat-icon>
+      </button>
+    </td>
+  </ng-container>
+  <ng-container matColumnDef="delete">
+    <th mat-header-cell *matHeaderCellDef>Eliminar</th>
+    <td mat-cell *matCellDef="let element">
+      <button mat-icon-button matTooltip="Eliminar país" (click)="delete(element.id)">
+        <mat-icon color="warn">delete</mat-icon>
+      </button>
+    </td>
+  </ng-container>
+  <tr mat-header-row *matHeaderRowDef="_displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: _displayedColumns;"></tr>
+</table>
+<mat-paginator #paginator [length]="totalRows" [pageIndex]="currentPage" [pageSize]="pageSize" (page)="pageChanged($event)" class="mat-elevation-z8"></mat-paginator>
